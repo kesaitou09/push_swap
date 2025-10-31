@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 00:06:25 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/10/31 14:01:07 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:52:28 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,42 +51,73 @@ int	ss(t_ring_buff *ring_a, t_ring_buff *ring_b)
 	succ_b = swap_top(ring_b);
 	if (succ_a || succ_b)
 		write(1, "ss\n", 3);
-	return(SUCCESS);
-}
-
-int pa(t_ring_buff *ring_a, t_ring_buff *ring_b)
-{
-	int	x;
-
-	if (ring_b ->size == 0)
-		return (ERROR);
-	x = ring_b ->buff[ring_b ->head];
-	ring_b ->head = (ring_b ->head + 1) % ring_b ->cap;
-	ring_b ->size--;
-
-	ring_a ->head = (ring_a ->head - 1 + ring_a ->cap) % ring_a ->cap;
-	ring_a ->buff[ring_a ->head] = x;
-	ring_a ->size++;
-
-	write(1, "pa\n", 3);
-	return (SUCCESS);	
-}
-
-int pb(t_ring_buff *a, t_ring_buff *b)
-{
-	int	x;
-
-	if (b ->size == 0)
-		return (ERROR);	
-	x = a ->buff[a ->head];
-	a ->head = (a ->head + 1) % a ->cap;
-	a ->size--;
-
-	b ->head = (b ->head - 1 + b ->cap) % a ->cap;
-	b ->buff[b ->head] = x;
-	b ->size++;
-	write(1, "pb\n",3);
 	return (SUCCESS);
 }
 
-int rotate_a
+int	pa(t_ring_buff *ring_a, t_ring_buff *ring_b)
+{
+	int	x;
+
+	if (ring_b->size == 0)
+		return (ERROR);
+	x = ring_b->buff[ring_b->head];
+	ring_b->head = (ring_b->head + 1) % ring_b->cap;
+	ring_b->size--;
+	ring_a->head = (ring_a->head - 1 + ring_a->cap) % ring_a->cap;
+	ring_a->buff[ring_a->head] = x;
+	ring_a->size++;
+	write(1, "pa\n", 3);
+	return (SUCCESS);
+}
+
+int	pb(t_ring_buff *a, t_ring_buff *b)
+{
+	int	x;
+
+	if (b->size == 0)
+		return (ERROR);
+	x = a->buff[a->head];
+	a->head = (a->head + 1) % a->cap;
+	a->size--;
+	b->head = (b->head - 1 + b->cap) % a->cap;
+	b->buff[b->head] = x;
+	b->size++;
+	write(1, "pb\n", 3);
+	return (SUCCESS);
+}
+
+int	ra(t_ring_buff *a)
+{
+	if (a->size < 2)
+		return (SUCCESS);
+	a->head = (a->head + 1) % a->cap;
+	write(1, "ra\n", 3);
+	return (0);
+}
+
+int	rb(t_ring_buff *b)
+{
+	if (b->size < 2)
+		return (SUCCESS);
+	b->head = (b->head + 1) % b->cap;
+	write(1, "rb\n", 3);
+	return (SUCCESS);
+}
+
+int	rra(t_ring_buff *a)
+{
+	if (a->size < 2)
+		return (SUCCESS);
+	a->head = (a->head - 1 + a->cap) % a->cap;
+	write(1, "rra\n", 4);
+	return (SUCCESS);
+}
+
+int	rrb(t_ring_buff *b)
+{
+	if (b->size < 2)
+		return (SUCCESS);
+	b->head = (b->head - 1 + b->cap) % b->cap;
+	write(1, "rrb\n", 4);
+	return (SUCCESS);
+}

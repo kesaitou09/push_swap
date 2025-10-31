@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:03:03 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/10/31 11:16:15 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/10/31 16:49:24 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void	init_ring_buff(t_ring_buff *r_buff)
 {
 	r_buff->buff = NULL;
-	r_buff ->ind = NULL;
-	r_buff ->cap = 0;
+	r_buff->ind = NULL;
+	r_buff->cap = 0;
 	r_buff->head = 0;
 	r_buff->size = 0;
 }
 
 int	main(int ac, char **av)
 {
-	t_ring_buff ring_a;
+	t_ring_buff	ring_a;
 	t_ring_buff	ring_b;
 
 	init_ring_buff(&ring_a);
@@ -33,7 +33,12 @@ int	main(int ac, char **av)
 	{
 		if (parse_ac1(&ring_a, av[1]) == ERROR)
 			return (1);
+		if (create_ring(&ring_a) == ERROR)
+			return (1);
+		make_stackb(&ring_b, ring_a.size);
 		
+		
+			
 	}
 	else
 	{
@@ -43,6 +48,4 @@ int	main(int ac, char **av)
 	// {
 	// 	ft_printf("%d,",rank[i]);
 	// }
-	
-	
 }
