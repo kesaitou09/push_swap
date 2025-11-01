@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:05:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/10/31 07:20:47 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/01 13:03:40 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	grant_rank(t_ring_buff r_buff, int *rank)
 		{
 			if (i != j && r_buff.buff[i] == r_buff.buff[j])
 				return (0);
-			if (r_buff.buff[i] < r_buff.buff[j])
+			if (r_buff.buff[j] < r_buff.buff[i])
 				r++;
 			j++;
 		}

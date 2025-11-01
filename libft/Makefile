@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/18 16:54:22 by kesaitou          #+#    #+#              #
-#    Updated: 2025/10/29 18:29:06 by kesaitou         ###   ########.fr        #
+#    Updated: 2025/11/01 19:51:57 by ksaitou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-CC := cc
+CC := gcc
 CFLAGS := -Wall -Werror -Wextra -I includes
 AR := ar
 ARFLAGS := rcs

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:03:03 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/10/31 16:49:24 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/01 19:46:51 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int	main(int ac, char **av)
 		if (create_ring(&ring_a) == ERROR)
 			return (1);
 		make_stackb(&ring_b, ring_a.size);
-		
-		
-			
+		sort_process(&ring_a, &ring_b);
 	}
 	else
 	{
@@ -48,4 +46,5 @@ int	main(int ac, char **av)
 	// {
 	// 	ft_printf("%d,",rank[i]);
 	// }
+	return (0);
 }

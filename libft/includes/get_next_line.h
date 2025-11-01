@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 11:35:18 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/10/29 20:55:02 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/01 19:52:43 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define OPEN_MAX 65534
-
+// # define OPEN_MAX 65534
+#define OPEN_MAX 10240
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1000
 # endif
