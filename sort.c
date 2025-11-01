@@ -68,7 +68,6 @@ void    mark_flag(t_buff *for_lis, int size)
     k = for_lis ->end;
     while (k !=)
     {
-        /* code */
     }
     
     
