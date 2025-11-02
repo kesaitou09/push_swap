@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:05:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/01 13:03:40 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/02 08:00:44 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	token_checker(char *av, size_t *size)
 
 int	init_buff(t_ring_buff *r_buff, char *av, size_t size)
 {
-	size_t	i;
+	int		i;
 	int		err;
 	int		digit;
 
@@ -97,7 +97,7 @@ int	init_buff(t_ring_buff *r_buff, char *av, size_t size)
 		digit = ft_atoll(&av, &err);
 		if (err)
 			return (ERROR);
-		r_buff->buff[i] = digit;
+		r_buff->buff[((r_buff->head + i) % r_buff ->cap)] = digit;
 		i++;
 	}
 	return (SUCCESS);
@@ -111,6 +111,7 @@ int	parse_ac1(t_ring_buff *r_buff, char *av)
 	if (token_checker(av, &size) == ERROR)
 		return (ERROR);
 	r_buff->cap = size;
+	r_buff ->head = 0;
 	r_buff->buff = malloc(sizeof(int) * size);
 	if (!r_buff->buff)
 		return (ERROR);
@@ -123,20 +124,32 @@ int	parse_ac1(t_ring_buff *r_buff, char *av)
 int	grant_rank(t_ring_buff r_buff, int *rank)
 {
 	size_t	i;
-	size_t	j;
 	int		r;
 
 	i = 0;
 	r = 0;
+	if (rank_helper(r_buff, rank, i, r) == ERROR)
+		return (ERROR);
+	return (1);
+}
+
+int	rank_helper(t_ring_buff r_buff, int *rank, size_t i, size_t r)
+{
+	size_t	j;
+	int		vi;
+	int		vj;
+
 	while (i < r_buff.size)
 	{
-		r = 0;
+		vi = r_buff.buff[(r_buff.head + i) % r_buff.cap];
 		j = 0;
+		r = 0;
 		while (j < r_buff.size)
 		{
-			if (i != j && r_buff.buff[i] == r_buff.buff[j])
+			vj = r_buff.buff[(r_buff.head + j) % r_buff.cap];
+			if (i != j && vi == vj)
 				return (0);
-			if (r_buff.buff[j] < r_buff.buff[i])
+			if (vj < vi)
 				r++;
 			j++;
 		}

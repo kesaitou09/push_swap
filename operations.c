@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 00:06:25 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/10/31 15:52:28 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/02 08:24:47 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ int	pb(t_ring_buff *a, t_ring_buff *b)
 {
 	int	x;
 
-	if (b->size == 0)
+	if (a->size == 0)
 		return (ERROR);
 	x = a->buff[a->head];
 	a->head = (a->head + 1) % a->cap;
 	a->size--;
-	b->head = (b->head - 1 + b->cap) % a->cap;
+	b->head = (b->head - 1 + b->cap) % b->cap;
 	b->buff[b->head] = x;
 	b->size++;
 	write(1, "pb\n", 3);
@@ -119,5 +119,15 @@ int	rrb(t_ring_buff *b)
 		return (SUCCESS);
 	b->head = (b->head - 1 + b->cap) % b->cap;
 	write(1, "rrb\n", 4);
+	return (SUCCESS);
+}
+
+int	rrr(t_ring_buff *a, t_ring_buff *b)
+{
+	if (a ->size < 2 || b -> size < 2)
+		return (SUCCESS);
+	a ->head = (a ->head - 1 + (a ->cap) % a ->cap);
+	b ->head = (b ->head - 1 + (b ->cap) % b ->cap);
+	write(1, "rrr\n", 4);
 	return (SUCCESS);
 }

@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/01 22:58:57 by kesaitou          #+#    #+#             */
+/*   Updated: 2025/11/02 13:25:37 by kesaitou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
+
 void    free_all(t_buff *forlis)
 {
     free(forlis ->dp);
@@ -12,6 +25,7 @@ int	init_forlis(t_buff *for_lis, t_ring_buff *a, int size)
 	int	i;
 	int	to_phys;
 
+	for_lis ->n_vals = size;
     for_lis ->max_len = 0;
     for_lis ->end = 0;
 	for_lis->dp = malloc(sizeof(int) * size);
@@ -26,7 +40,7 @@ int	init_forlis(t_buff *for_lis, t_ring_buff *a, int size)
         to_phys = IND(a, i);
 		for_lis->dp[i] = 1;
 		for_lis->prev[i] = -1;
-		for_lis->phys[to_phys] = a->buff[to_phys];
+		for_lis->phys[i] = a->buff[to_phys];
 		i++;
 	}
 	return (SUCCESS);
@@ -38,13 +52,12 @@ void    lis_dp(t_ring_buff *a, t_buff *for_lis)
 	int	j;
  
 	i = 0;
-	while (i < a->size)
+	while (i < for_lis ->n_vals)
 	{
 		j = 0;
 		while (j < i)
 		{
-			if (for_lis->phys[j] < for_lis->phys[i] && for_lis->dp[j]
-				+ 1 > for_lis->dp[i])
+			if (for_lis->phys[j] < for_lis->phys[i] && (for_lis->dp[j] + 1) > for_lis->dp[i])
 			{
 				for_lis->dp[i] = for_lis->dp[j] + 1;
 				for_lis->prev[i] = j;
@@ -60,44 +73,63 @@ void    lis_dp(t_ring_buff *a, t_buff *for_lis)
 	}
 }
 
-void    mark_flag(t_buff *for_lis, int size)
+void    mark_flag(t_buff *for_lis)
 {
     int k;
     int r;
 
     k = for_lis ->end;
-    while (k !=)
+    while (k != -1)
     {
+		r = for_lis ->phys[k];
+		if (r >= 0 && r < for_lis -> n_vals)
+			for_lis ->lis_tab[r] = 1;
+		k = for_lis ->prev[k];
     }
-    
-    
-    
+	
 }
-int	lis(t_ring_buff *a, t_ring_buff *b, t_buff *for_lis)
+void	lis(t_ring_buff *a, t_ring_buff *b, t_buff *for_lis)
 {
 
     lis_dp(a, for_lis);
-    mark_flag(for_lis, a ->size);
-    return (1);
-    
-    
-    
-    
-    
-    
-    
+    mark_flag(for_lis);
 }
-
 
 
 int	sort_process(t_ring_buff *a, t_ring_buff *b)
 {
 	t_buff for_lis;
 
-
 	if (init_forlis(&for_lis, a, a->size) == ERROR)
 		return (ERROR);
     lis(a, b, &for_lis);
+	if (make_stackb(a, b) == ERROR)
+		return (ERROR);
+	if (push_nonlis(&for_lis, a, b) == ERROR)
+		return (ERROR);
+	search_and_insert(a, b);
+
+	// for (int i = 0; i < a ->size; i++)
+	// {
+	// 	ft_printf("%d,",a ->buff[i]);
+	// }
+	// 	ft_printf("stack a\n");
+	// for (int i = 0; i < b ->size; i++)
+	// {
+	// 	int ind = IND(b, i);
+	// 	ft_printf("%d,",b ->buff[ind]);
+	// }
+	// 	ft_printf("stack b\n");
+	// for (int i = 0; i < a ->size; i++)
+	// {
+	// 	int ind = IND(a, i);
+	// 	ft_printf("%d,",a ->buff[ind]);
+	// }
+	
+	
+	
+	
+	
 
 
 
@@ -105,15 +137,26 @@ int	sort_process(t_ring_buff *a, t_ring_buff *b)
 
 
 
+
+	//ーーーーーーテストーーーーーーーーーーーーー//
+
+	// ft_printf("\nrank")
+	ft_printf("\ndp\n");
     for (int i = 0; i < a ->size; i++)
     {
         ft_printf("%d,",for_lis.dp[i]);
     }
-    ft_printf("\n");
+    ft_printf("\nprev\n");
     for (int i = 0; i < a ->size; i++)
     {
         ft_printf("%d,",for_lis.prev[i]);
     }
+	ft_printf("\ntab\n");
+	for (int i = 0; i < a ->size; i++)
+	{
+		ft_printf("%d,",for_lis.lis_tab[i]);
+	}
+	
     
     return (SUCCESS);
 	// lis(a, b, &for_lis);
