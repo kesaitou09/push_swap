@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 22:58:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/02 13:25:37 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/02 21:35:58 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	sort_process(t_ring_buff *a, t_ring_buff *b)
 		return (ERROR);
 	if (push_nonlis(&for_lis, a, b) == ERROR)
 		return (ERROR);
-	search_and_insert(a, b);
+	sort_from_b_simple(a, b);
 
 	// for (int i = 0; i < a ->size; i++)
 	// {
@@ -141,21 +141,21 @@ int	sort_process(t_ring_buff *a, t_ring_buff *b)
 	//ーーーーーーテストーーーーーーーーーーーーー//
 
 	// ft_printf("\nrank")
-	ft_printf("\ndp\n");
-    for (int i = 0; i < a ->size; i++)
-    {
-        ft_printf("%d,",for_lis.dp[i]);
-    }
-    ft_printf("\nprev\n");
-    for (int i = 0; i < a ->size; i++)
-    {
-        ft_printf("%d,",for_lis.prev[i]);
-    }
-	ft_printf("\ntab\n");
-	for (int i = 0; i < a ->size; i++)
-	{
-		ft_printf("%d,",for_lis.lis_tab[i]);
-	}
+	// ft_printf("\ndp\n");
+    // for (int i = 0; i < a ->size; i++)
+    // {
+    //     ft_printf("%d,",for_lis.dp[i]);
+    // }
+    // ft_printf("\nprev\n");
+    // for (int i = 0; i < a ->size; i++)
+    // {
+    //     ft_printf("%d,",for_lis.prev[i]);
+    // }
+	// ft_printf("\ntab\n");
+	// for (int i = 0; i < a ->size; i++)
+	// {
+	// 	ft_printf("%d,",for_lis.lis_tab[i]);
+	// }
 	
     
     return (SUCCESS);
