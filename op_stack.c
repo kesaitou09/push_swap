@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 02:17:15 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 01:38:43 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 04:07:07 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,7 @@ static int	max(int a, int b)
 	return (b);
 }
 
-static int	same_sign(int a, int b)
-{
-	if ((a >= 0 && b >= 0) || (a < 0 && b < 0))
-		return (1);
-	return (0);
-}
-
-static int	merged_cost(int ca, int cb)
-{
-	if (same_sign(ca, cb) == 1)
-		return (max(my_abs(ca), my_abs(cb)));
-	return (my_abs(ca) + my_abs(cb));
-}
-
-static int	rot_cost(int idx, int n)
-{
-	if (idx <= n / 2)
-		return (idx);
-	return (idx - n);
-}
-
-static int	idx_min_logical(const t_ring_buff *a)
+static int	idx_min_logical(t_ring_buff *a)
 {
 	int	i;
 	int	imin;
@@ -71,7 +50,7 @@ static int	idx_min_logical(const t_ring_buff *a)
 	return (imin);
 }
 
-static int	max_val(const t_ring_buff *a)
+static int	max_val(t_ring_buff *a)
 {
 	int	i;
 	int	vmax;
@@ -89,35 +68,58 @@ static int	max_val(const t_ring_buff *a)
 	return (vmax);
 }
 
-t_move	best_move(const t_ring_buff *a, const t_ring_buff *b)
+static int	same_sign(int a, int b)
+{
+	if ((a >= 0 && b >= 0) || (a < 0 && b < 0))
+		return (1);
+	return (0);
+}
+
+static int	merged_cost(int a_cost, int b_cost)
+{
+	if (same_sign(a_cost, b_cost) == 1)
+		return (max(my_abs(a_cost), my_abs(b_cost)));
+	return (my_abs(a_cost) + my_abs(b_cost));
+}
+//コストの最大値、コストの合計を計算する関数
+
+static int	rot_cost(int idx, int n)
+{
+	if (idx <= n / 2)
+		return (idx);
+	return (idx - n);
+}
+
+static void	init_tmove(t_move *best)
+{
+	best ->a_cost = 0;
+	best ->b_cost = 0;
+	best ->ib = 0;
+	best ->pos_a = 0;
+	best ->cost = INT_MAX;
+}
+
+t_move	best_move(t_ring_buff *a, t_ring_buff *b)
 {
 	t_move	best;
 	int		id_sb;
 	int		bval;
 	int		pos;
-	int		ca;
-	int		cb;
 	int		c;
 
-	best.ib = 0;
-	best.pos_a = 0;
-	best.ca = 0;
-	best.cb = 0;
-	best.cost = 2147483647;
+	init_tmove(&best);
 	id_sb = 0;
 	while (id_sb < b->size)
 	{
 		bval = VAL(b, id_sb);
 		pos = pos_in_a_for(a, bval);
-		ca = rot_cost(pos, a->size);
-		cb = rot_cost(id_sb, b->size);
-		c = merged_cost(ca, cb);
+		c = merged_cost(rot_cost(pos, a->size), rot_cost(id_sb, b ->size));
 		if (c < best.cost)
 		{
 			best.ib = id_sb;
 			best.pos_a = pos;
-			best.ca = ca;
-			best.cb = cb;
+			best.a_cost = rot_cost(pos, a->size);
+			best.b_cost = rot_cost(id_sb, b ->size);
 			best.cost = c;
 		}
 		id_sb++;
@@ -127,42 +129,42 @@ t_move	best_move(const t_ring_buff *a, const t_ring_buff *b)
 
 void	apply_move(t_ring_buff *a, t_ring_buff *b, t_move m, int *total)
 {
-	while (m.ca > 0 && m.cb > 0)
+	while (m.a_cost > 0 && m.b_cost > 0)
 	{
 		rr(a, b, total);
-		m.ca--;
-		m.cb--;
+		m.a_cost--;
+		m.b_cost--;
 	}
-	while (m.ca < 0 && m.cb < 0)
+	while (m.a_cost < 0 && m.b_cost < 0)
 	{
 		rrr(a, b, total);
-		m.ca++;
-		m.cb++;
+		m.a_cost++;
+		m.b_cost++;
 	}
-	while (m.ca > 0)
+	while (m.a_cost > 0)
 	{
 		ra(a, total, 1);
-		m.ca--;
+		m.a_cost--;
 	}
-	while (m.ca < 0)
+	while (m.a_cost < 0)
 	{
 		rra(a, total, 1);
-		m.ca++;
+		m.a_cost++;
 	}
-	while (m.cb > 0)
+	while (m.b_cost > 0)
 	{
 		rb(b, total, 1);
-		m.cb--;
+		m.b_cost--;
 	}
-	while (m.cb < 0)
+	while (m.b_cost < 0)
 	{
 		rrb(b, total, 1);
-		m.cb++;
+		m.b_cost++;
 	}
 	pa(a, b, total);
 }
 
-int	pos_in_a_for(const t_ring_buff *a, int b)
+int	pos_in_a_for(t_ring_buff *a, int b)
 {
 	int	i;
 	int	imin;

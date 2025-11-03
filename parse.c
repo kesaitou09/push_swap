@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:05:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 01:28:36 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 03:21:57 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ long long	ft_atoll(char **av, int *err)
 	while (**av >= '0' && **av <= '9')
 	{
 		digit = **av - '0';
-		if (result > lim / 10 || result == lim / 10 && digit > (lim % 10))
+		if (result > lim / 10 || (result == lim / 10 && digit > (lim % 10)))
 			return (*err = 1, 0);
 		result = result * 10 + digit;
 		(*av)++;
@@ -83,7 +83,7 @@ int	token_checker(char *av, size_t *size)
 
 int	init_buff(t_ring_buff *r_buff, char *av, size_t size)
 {
-	int		i;
+	size_t	i;
 	int		err;
 	int		digit;
 
@@ -97,7 +97,7 @@ int	init_buff(t_ring_buff *r_buff, char *av, size_t size)
 		digit = ft_atoll(&av, &err);
 		if (err)
 			return (ERROR);
-		r_buff->buff[((r_buff->head + i) % r_buff ->cap)] = digit;
+		r_buff->buff[((r_buff->head + i) % r_buff->cap)] = digit;
 		i++;
 	}
 	return (SUCCESS);
@@ -111,7 +111,7 @@ int	parse_ac1(t_ring_buff *r_buff, char *av)
 	if (token_checker(av, &size) == ERROR)
 		return (ERROR);
 	r_buff->cap = size;
-	r_buff ->head = 0;
+	r_buff->head = 0;
 	r_buff->buff = malloc(sizeof(int) * size);
 	if (!r_buff->buff)
 		return (ERROR);
@@ -133,9 +133,9 @@ int	grant_rank(t_ring_buff r_buff, int *rank)
 	return (1);
 }
 
-int	rank_helper(t_ring_buff r_buff, int *rank, size_t i, size_t r)
+int	rank_helper(t_ring_buff r_buff, int *rank, int i, int r)
 {
-	size_t	j;
+	int		j;
 	int		vi;
 	int		vj;
 
@@ -159,21 +159,21 @@ int	rank_helper(t_ring_buff r_buff, int *rank, size_t i, size_t r)
 	return (1);
 }
 
-
 #include <stdlib.h>
 #include <string.h>
 
 /* av[1..ac-1] を "arg1 arg2 arg3 ..." に連結して返す。失敗時 NULL。*/
-char *join_args_with_spaces(int n, char **args)
+char	*join_args_with_spaces(int n, char **args)
 {
-	size_t i;
-	size_t total;
-	char   *s;
-	char   *p;
+	size_t	i;
+	size_t	total;
+	char	*s;
+	char	*p;
+	size_t	len;
 
 	if (n <= 0 || !args)
-		return NULL;
-	total = 1; 
+		return (NULL);
+	total = 1;
 	i = 0;
 	while (i < (size_t)n)
 	{
@@ -184,12 +184,12 @@ char *join_args_with_spaces(int n, char **args)
 	}
 	s = (char *)malloc(total);
 	if (!s)
-		return NULL;
+		return (NULL);
 	p = s;
 	i = 0;
 	while (i < (size_t)n)
 	{
-		size_t len = strlen(args[i]);
+		len = strlen(args[i]);
 		memcpy(p, args[i], len);
 		p += len;
 		if (i + 1 < (size_t)n)
@@ -197,5 +197,5 @@ char *join_args_with_spaces(int n, char **args)
 		i++;
 	}
 	*p = '\0';
-	return s;
+	return (s);
 }

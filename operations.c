@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 00:06:25 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 00:17:37 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 03:59:43 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ss(t_ring_buff *ring_a, t_ring_buff *ring_b, int *total)
 
 	succ_a = swap_top(ring_a);
 	succ_b = swap_top(ring_b);
-	if (succ_a == SUCCESS || succ_b == SUCCESS)
+	if (succ_a == SUCCESS && succ_b == SUCCESS)
 	{
 		write(1, "ss\n", 3);
 		(*total)++;
@@ -133,7 +133,7 @@ int	rb(t_ring_buff *b, int *total, int how)
 	b->buff[tail] = tmp;
 	(*total)++;
 	if (how)
-		write(1, "ra\n", 3);
+		write(1, "rb\n", 3);
 	return (0);
 }
 

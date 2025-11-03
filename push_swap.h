@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:49:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 01:36:23 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 03:41:00 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ typedef struct s_move
 {
 	int		ib;
 	int		pos_a;
-	int		ca;
-	int		cb;
+	int		a_cost;
+	int		b_cost;
 	int		cost;
 }			t_move;
 
@@ -60,7 +60,7 @@ int			grant_rank(t_ring_buff r_buff, int *rank);
 int			create_ring(t_ring_buff *r_buff);
 int			ring_load(t_ring_buff *r, int *rank, int n);
 int			make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b);
-int			rank_helper(t_ring_buff r_buff, int *rank, size_t i, size_t r);
+int			rank_helper(t_ring_buff r_buff, int *rank, int i, int r);
 
 int			rr(t_ring_buff *a, t_ring_buff *b, int *total);
 int			rb(t_ring_buff *b, int *total, int how);
@@ -84,18 +84,17 @@ int			push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b,
 
 //-----debug-------//
 // void				random_op(t_ring_buff *a, t_ring_buff *b, t_buff *for_lis);
-void		print_stack_a(t_ring_buff *a, t_buff *for_lis);
-void		print_stack_b(t_ring_buff *a, t_buff *for_lis);
+void		print_stack_a(t_ring_buff *a);
+void		print_stack_b(t_ring_buff *a);
 void		print_dp_prev_listab(t_ring_buff *a, t_buff for_lis);
 
-//-------------test-------------------//
 void		sort_from_b(t_ring_buff *a, t_ring_buff *b, int *total);
 void		finish_rotate_min_to_top(t_ring_buff *a, int *total);
 void		insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b,
 				int *total);
-int			pos_in_a_for(const t_ring_buff *a, int b);
+int			pos_in_a_for(t_ring_buff *a, int b);
 char		*join_args_with_spaces(int n, char **args);
 void		apply_move(t_ring_buff *a, t_ring_buff *b, t_move m, int *total);
-t_move		best_move(const t_ring_buff *a, const t_ring_buff *b);
+t_move		best_move(t_ring_buff *a,t_ring_buff *b);
 
 #endif

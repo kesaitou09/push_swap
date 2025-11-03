@@ -6,17 +6,16 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 22:58:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 01:17:15 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 04:20:33 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_stack_a(t_ring_buff *a, t_buff *for_lis)
+void	print_stack_a(t_ring_buff *a)
 {
 	int	i;
 	int	n;
-	int	head;
 
 	i = 0;
 	n = a->size;
@@ -33,11 +32,10 @@ void	print_stack_a(t_ring_buff *a, t_buff *for_lis)
 	ft_printf("\n");
 }
 
-void	print_stack_b(t_ring_buff *b, t_buff *for_lis)
+void	print_stack_b(t_ring_buff *b)
 {
 	int	i;
 	int	n;
-	int	head;
 
 	i = 0;
 	n = b->size;
@@ -116,10 +114,9 @@ void	lis_dp(t_ring_buff *a, t_buff *for_lis)
 	}
 }
 
-void	mark_flag(t_buff *for_lis, t_ring_buff *a)
+void	mark_flag(t_buff *for_lis)
 {
 	int	k;
-	int	val;
 
 	k = for_lis->end;
 	while (k != -1)
@@ -129,10 +126,10 @@ void	mark_flag(t_buff *for_lis, t_ring_buff *a)
 	}
 }
 
-void	lis(t_ring_buff *a, t_ring_buff *b, t_buff *for_lis)
+void	lis(t_ring_buff *a, t_buff *for_lis)
 {
 	lis_dp(a, for_lis);
-	mark_flag(for_lis, a);
+	mark_flag(for_lis);
 }
 
 int	search_listab(t_buff *for_lis, int i, int size)
@@ -160,10 +157,9 @@ int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b, int *total)
 		else
 		{
 			pb(a, b, total);
-			
 		}
 		if (search_listab(for_lis, i + 1, n) == 0)
-				break ;
+			break ;
 		i++;
 	}
 	return (SUCCESS);
@@ -178,7 +174,7 @@ int	sort_process(t_ring_buff *a, t_ring_buff *b)
 	if (init_forlis(&for_lis, a, a->size) == ERROR)
 		return (ERROR);
 	// print_stack_a(a, &for_lis);
-	lis(a, b, &for_lis);
+	lis(a, &for_lis);
 	if (make_stackb(a, b) == ERROR)
 		return (ERROR);
 	// print_dp_prev_listab(a, for_lis);
@@ -188,7 +184,7 @@ int	sort_process(t_ring_buff *a, t_ring_buff *b)
 	// print_stack_b(b, &for_lis);
 	sort_from_b(a, b, &total);
 	// ft_printf("\n%d\n", total);
-	print_stack_a(a, &for_lis);
+	// print_stack_a(a);
 	// print_stack_b(b, &for_lis);
 	return (SUCCESS);
 	// lis(a, b, &for_lis);
