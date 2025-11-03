@@ -3,32 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   op_stack.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 02:17:15 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/03 11:59:34 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/03 22:05:47 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b, int *total)
-{
-	int	n;
-	int	key;
+// int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b, int *total)
+// {
+// 	int	n;
+// 	int	i;
 
-	n = a->size;
-	while (n--)
-	{
-		key = a->buff[a->head];
-		if (for_lis->lis_tab[key])
-			ra(a, total);
-		else
-			pb(a, b, total);
-	}
-	return (SUCCESS);
-}
+// 	i = 0;
+// 	n = for_lis->n_vals;
+// 	while (n--)
+// 	{
+// 		if (for_lis->lis_tab[IND(a, i++)])
+// 			ra(a, total);
+// 		else
+// 			pb(a, b, total);
+// 	}
+// 	return (SUCCESS);
+// }
+
+// int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b, int *total)
+// {
+// 	int	n;
+// 	int	phys;
+// 	int	logical;
+
+// 	n = for_lis->n_vals;
+// 	while (n--)
+// 	{
+// 		phys = a->head;
+// 		logical = for_lis->phys_to_logi[phys];
+// 		if (for_lis->lis_tab[logical])
+// 			ra(a, total);
+// 		else
+// 			pb(a, b, total);
+// 	}
+// 	return (SUCCESS);
+// }
 
 // int	search_spot(t_ring_buff *a, int b)
 // {
@@ -88,12 +107,6 @@ int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b, int *total)
 
 //------------------test-----------------//
 
-/* 必要なら定義してください
-#define IND(s, li) (((s)->head + (li)) % (s)->cap)
-#define VAL(s, li) ((s)->buff[ IND((s), (li)) ])
-*/
-
-/* 最小値の論理インデックス（a->size > 0 前提） */
 static int	idx_min_logical(const t_ring_buff *a)
 {
 	int	i;
@@ -117,7 +130,6 @@ static int	idx_min_logical(const t_ring_buff *a)
 	return (imin);
 }
 
-/* 最大値（a->size > 0 前提） */
 static int	max_val(const t_ring_buff *a)
 {
 	int	i;
@@ -136,9 +148,6 @@ static int	max_val(const t_ring_buff *a)
 	return (vmax);
 }
 
-/* b を A に昇順で挿す論理インデックス
-   - 通常: prev<b<cur を満たす i
-   - 例外: b<min(A) または b>max(A) は min の直前（= min の index） */
 int	pos_in_a_for(const t_ring_buff *a, int b)
 {
 	int	i;
@@ -153,14 +162,10 @@ int	pos_in_a_for(const t_ring_buff *a, int b)
 	if (a->size == 1)
 		return ((VAL(a, 0) < b) ? 1 : 0);
 	imin = idx_min_logical(a);
-	vmin = VAL(a, imin);          /* ★必ず取得する */
+	vmin = VAL(a, imin);
 	vmax = max_val(a);
-
-	/* 例外: 範囲外は最小の直前 */
 	if (b < vmin || b > vmax)
 		return (imin);
-
-	/* 通常: prev<b<cur を満たす i を探索（循環） */
 	i = 0;
 	while (i < a->size)
 	{
@@ -170,19 +175,16 @@ int	pos_in_a_for(const t_ring_buff *a, int b)
 			return (i);
 		i++;
 	}
-	/* 安全側フォールバック（理論上は到達しない） */
 	return (imin);
 }
 
-/* 先頭(論理0)へ最短で寄せる符号付き回転数（+ra / -rra） */
 static int	rot_cost(int idx, int n)
 {
 	if (idx <= n / 2)
 		return (idx);
-	return (idx - n); /* 例: n=10, idx=8 → -2 */
+	return (idx - n);
 }
 
-/* A を pos が先頭に来るまで最短回転 */
 static void	rotate_a_to(t_ring_buff *a, int pos, int *total)
 {
 	int	ca;
@@ -202,7 +204,6 @@ static void	rotate_a_to(t_ring_buff *a, int pos, int *total)
 	}
 }
 
-/* B の先頭を “追加手ゼロ” の位置に挿入（まず動く版） */
 void	insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b, int *total)
 {
 	int	bval;
@@ -210,13 +211,12 @@ void	insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b, int *total)
 
 	if (b->size == 0)
 		return ;
-	bval = b->buff[b->head];           /* B 先頭の値（物理 head） */
-	pos = pos_in_a_for(a, bval);       /* pa直後に円整列が崩れない位置 */
-	rotate_a_to(a, pos, total);               /* A 側の回転を最短化 */
-	pa(a, b, total);                          /* 追加の修正手不要で挿入 */
+	bval = b->buff[b->head];
+	pos = pos_in_a_for(a, bval);
+	rotate_a_to(a, pos, total);
+	pa(a, b, total);
 }
 
-/* 仕上げ：A の最小を先頭へ */
 void	finish_rotate_min_to_top(t_ring_buff *a, int *total)
 {
 	int	pos;
@@ -227,8 +227,7 @@ void	finish_rotate_min_to_top(t_ring_buff *a, int *total)
 	rotate_a_to(a, pos, total);
 }
 
-/* ここに来るまでに：LIS を A に残し、非 LIS をすべて B に pb 済み */
-void	sort_from_b_simple(t_ring_buff *a, t_ring_buff *b, int *total)
+void	sort_from_b(t_ring_buff *a, t_ring_buff *b, int *total)
 {
 	while (b->size > 0)
 		insert_top_b_into_a_minops(a, b, total);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ring.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 07:08:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/03 02:28:38 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/03 19:58:05 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	ring_load(t_ring_buff *r, int *rank, int n)
 	
 	return (SUCCESS);
 }
-
-
 
 int	make_stackb(t_ring_buff *ring_a , t_ring_buff *ring_b)
 {

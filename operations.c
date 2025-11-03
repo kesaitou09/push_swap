@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 00:06:25 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/02 23:38:04 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/03 21:51:50 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,22 +105,33 @@ int	pb(t_ring_buff *a, t_ring_buff *b, int *total)
 
 int	ra(t_ring_buff *a, int *total)
 {
+	int	tmp;
+	int	tail;
+
 	if (a->size < 2)
 		return (SUCCESS);
+	tmp = a ->buff[a ->head];
 	a->head = (a->head + 1) % a->cap;
+	tail = (a ->head + a ->size - 1) % a ->cap;
+	a ->buff[tail] = tmp;
 	(*total)++;
 	write(1, "ra\n", 3);
 	return (0);
 }
-
 int	rb(t_ring_buff *b, int *total)
 {
+	int	tmp;
+	int	tail;
+
 	if (b->size < 2)
 		return (SUCCESS);
+	tmp = b ->buff[b ->head];
 	b->head = (b->head + 1) % b->cap;
+	tail = (b ->head + b ->size - 1) % b ->cap;
+	b ->buff[tail] = tmp;
 	(*total)++;
-	write(1, "rb\n", 3);
-	return (SUCCESS);
+	write(1, "ra\n", 3);
+	return (0);
 }
 
 int	rra(t_ring_buff *a, int *total)

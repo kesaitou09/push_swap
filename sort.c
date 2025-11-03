@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 22:58:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/03 12:04:08 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/03 21:52:47 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	print_stack_a(t_ring_buff *a, t_buff *for_lis)
 	}
 	while (n--)
 	{
-		head = (a->head + i) % a->cap;
-		ft_printf("%d,", a->buff[head]);
+		ft_printf("%d,", a->buff[(a->head + i) % a->cap]);
 		i++;
 	}
 	ft_printf("\n");
@@ -49,8 +48,7 @@ void	print_stack_b(t_ring_buff *b, t_buff *for_lis)
 	}
 	while (n--)
 	{
-		head = (b->head + i) % b->cap;
-		ft_printf("%d,", b->buff[head]);
+		ft_printf("%d,", b->buff[(b->head + i) % b->cap]);
 		i++;
 	}
 	ft_printf("\n");
@@ -75,16 +73,17 @@ int	init_forlis(t_buff *for_lis, t_ring_buff *a, int size)
 	for_lis->dp = malloc(sizeof(int) * size);
 	for_lis->prev = malloc(sizeof(int) * size);
 	for_lis->phys = malloc(sizeof(int) * size);
-	for_lis->lis_tab = ft_calloc(sizeof(char), size);
+	for_lis->lis_tab = malloc(sizeof(int) * size);
 	if (!for_lis->dp || !for_lis->prev || !for_lis->phys || !for_lis->lis_tab)
 		return (free_all(for_lis), ERROR);
 	i = 0;
 	while (i < size)
 	{
-		to_phys = IND(a, i);
+		to_phys = ((a->head + i) % a->cap);
 		for_lis->dp[i] = 1;
 		for_lis->prev[i] = -1;
-		for_lis->phys[i] = a->buff[to_phys];
+		for_lis->phys[i] = to_phys;
+		for_lis->lis_tab[i] = 0;
 		i++;
 	}
 	return (SUCCESS);
@@ -101,8 +100,7 @@ void	lis_dp(t_ring_buff *a, t_buff *for_lis)
 		j = 0;
 		while (j < i)
 		{
-			if (for_lis->phys[j] < for_lis->phys[i] && (for_lis->dp[j]
-					+ 1) >= for_lis->dp[i])
+			if (VAL(a, j) < VAL(a, i) && (for_lis->dp[j] + 1) >= for_lis->dp[i])
 			{
 				for_lis->dp[i] = for_lis->dp[j] + 1;
 				for_lis->prev[i] = j;
@@ -118,17 +116,15 @@ void	lis_dp(t_ring_buff *a, t_buff *for_lis)
 	}
 }
 
-void	mark_flag(t_buff *for_lis)
+void	mark_flag(t_buff *for_lis, t_ring_buff *a)
 {
 	int	k;
-	int	r;
+	int	val;
 
 	k = for_lis->end;
 	while (k != -1)
 	{
-		r = for_lis->phys[k];
-		if (r >= 0 && r < for_lis->n_vals)
-			for_lis->lis_tab[r] = 1;
+		for_lis->lis_tab[k] = 1;
 		k = for_lis->prev[k];
 	}
 }
@@ -136,7 +132,41 @@ void	mark_flag(t_buff *for_lis)
 void	lis(t_ring_buff *a, t_ring_buff *b, t_buff *for_lis)
 {
 	lis_dp(a, for_lis);
-	mark_flag(for_lis);
+	mark_flag(for_lis, a);
+}
+
+int	search_listab(t_buff *for_lis, int i, int size)
+{
+	while (i < size)
+	{
+		if (for_lis->lis_tab[i] == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b, int *total)
+{
+	int	n;
+	int	i;
+
+	i = 0;
+	n = for_lis->n_vals;
+	while (i < n)
+	{
+		if (for_lis->lis_tab[i] == 1)
+			ra(a, total);
+		else
+		{
+			pb(a, b, total);
+			
+		}
+		if (search_listab(for_lis, i + 1, n) == 0)
+				break ;
+		i++;
+	}
+	return (SUCCESS);
 }
 
 int	sort_process(t_ring_buff *a, t_ring_buff *b)
@@ -151,6 +181,7 @@ int	sort_process(t_ring_buff *a, t_ring_buff *b)
 	lis(a, b, &for_lis);
 	if (make_stackb(a, b) == ERROR)
 		return (ERROR);
+	// print_dp_prev_listab(a, for_lis);
 	if (push_nonlis(&for_lis, a, b, &total) == ERROR)
 		return (ERROR);
 	print_stack_a(a, &for_lis);
@@ -175,23 +206,26 @@ int	sort_process(t_ring_buff *a, t_ring_buff *b)
 	// 	int ind = IND(a, i);
 	// 	ft_printf("%d,",a ->buff[ind]);
 	// }
-	// ーーーーーーテストーーーーーーーーーーーーー//
-	// ft_printf("\nrank")
-	// ft_printf("\ndp\n");
-	// for (int i = 0; i < a ->size; i++)
-	// {
-	//     ft_printf("%d,",for_lis.dp[i]);
-	// }
-	// ft_printf("\nprev\n");
-	// for (int i = 0; i < a ->size; i++)
-	// {
-	//     ft_printf("%d,",for_lis.prev[i]);
-	// }
-	// ft_printf("\ntab\n");
-	// for (int i = 0; i < a ->size; i++)
-	// {
-	// 	ft_printf("%d,",for_lis.lis_tab[i]);
-	// }
 	return (SUCCESS);
 	// lis(a, b, &for_lis);
+}
+
+void	print_dp_prev_listab(t_ring_buff *a, t_buff for_lis)
+{
+	ft_printf("\ndp\n");
+	for (int i = 0; i < a->size; i++)
+	{
+		ft_printf("%d,", for_lis.dp[i]);
+	}
+	ft_printf("\nprev\n");
+	for (int i = 0; i < a->size; i++)
+	{
+		ft_printf("%d,", for_lis.prev[i]);
+	}
+	ft_printf("\ntab\n");
+	for (int i = 0; i < a->size; i++)
+	{
+		ft_printf("%d,", for_lis.lis_tab[i]);
+	}
+	ft_printf("\n");
 }
