@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:49:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/03 22:07:32 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 01:36:23 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,14 @@ typedef struct s_buff
 	int		n_vals;
 }			t_buff;
 
-
-
+typedef struct s_move
+{
+	int		ib;
+	int		pos_a;
+	int		ca;
+	int		cb;
+	int		cost;
+}			t_move;
 
 int			parse_ac1(t_ring_buff *r_buff, char *av);
 int			token_checker(char *av, size_t *size);
@@ -56,15 +62,16 @@ int			ring_load(t_ring_buff *r, int *rank, int n);
 int			make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b);
 int			rank_helper(t_ring_buff r_buff, int *rank, size_t i, size_t r);
 
-int			rb(t_ring_buff *b, int *total);
-int			ra(t_ring_buff *a, int *total);
+int			rr(t_ring_buff *a, t_ring_buff *b, int *total);
+int			rb(t_ring_buff *b, int *total, int how);
+int			ra(t_ring_buff *a, int *total, int how);
 int			pb(t_ring_buff *a, t_ring_buff *b, int *total);
 int			pa(t_ring_buff *ring_a, t_ring_buff *ring_b, int *total);
 int			ss(t_ring_buff *ring_a, t_ring_buff *ring_b, int *total);
 int			sb(t_ring_buff *ring_b, int *total);
 int			sa(t_ring_buff *ring_a, int *total);
-int			rrb(t_ring_buff *b, int *total);
-int			rra(t_ring_buff *a, int *total);
+int			rrb(t_ring_buff *b, int *total, int how);
+int			rra(t_ring_buff *a, int *total, int how);
 int			rrr(t_ring_buff *a, t_ring_buff *b, int *total);
 int			swap_top(t_ring_buff *r);
 
@@ -88,5 +95,7 @@ void		insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b,
 				int *total);
 int			pos_in_a_for(const t_ring_buff *a, int b);
 char		*join_args_with_spaces(int n, char **args);
+void		apply_move(t_ring_buff *a, t_ring_buff *b, t_move m, int *total);
+t_move		best_move(const t_ring_buff *a, const t_ring_buff *b);
 
 #endif

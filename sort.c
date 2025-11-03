@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 22:58:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/03 21:52:47 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 01:17:15 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b, int *total)
 	while (i < n)
 	{
 		if (for_lis->lis_tab[i] == 1)
-			ra(a, total);
+			ra(a, total, 1);
 		else
 		{
 			pb(a, b, total);
@@ -177,35 +177,19 @@ int	sort_process(t_ring_buff *a, t_ring_buff *b)
 	total = 0;
 	if (init_forlis(&for_lis, a, a->size) == ERROR)
 		return (ERROR);
-	print_stack_a(a, &for_lis);
+	// print_stack_a(a, &for_lis);
 	lis(a, b, &for_lis);
 	if (make_stackb(a, b) == ERROR)
 		return (ERROR);
 	// print_dp_prev_listab(a, for_lis);
 	if (push_nonlis(&for_lis, a, b, &total) == ERROR)
 		return (ERROR);
+	// print_stack_a(a, &for_lis);
+	// print_stack_b(b, &for_lis);
+	sort_from_b(a, b, &total);
+	// ft_printf("\n%d\n", total);
 	print_stack_a(a, &for_lis);
-	print_stack_b(b, &for_lis);
-	sort_from_b_simple(a, b, &total);
-	ft_printf("\n%d\n", total);
-	print_stack_a(a, &for_lis);
-	print_stack_b(b, &for_lis);
-	// for (int i = 0; i < a ->size; i++)
-	// {
-	// 	ft_printf("%d,",a ->buff[i]);
-	// }
-	// 	ft_printf("stack a\n");
-	// for (int i = 0; i < b ->size; i++)
-	// {
-	// 	int ind = IND(b, i);
-	// 	ft_printf("%d,",b ->buff[ind]);
-	// }
-	// 	ft_printf("stack b\n");
-	// for (int i = 0; i < a ->size; i++)
-	// {
-	// 	int ind = IND(a, i);
-	// 	ft_printf("%d,",a ->buff[ind]);
-	// }
+	// print_stack_b(b, &for_lis);
 	return (SUCCESS);
 	// lis(a, b, &for_lis);
 }

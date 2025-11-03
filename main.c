@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/30 12:03:03 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/02 23:55:40 by ksaitou          ###   ########.fr       */
+/*   Created: 2025/11/04 00:41:39 by kesaitou          #+#    #+#             */
+/*   Updated: 2025/11/04 00:56:58 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int ac, char **av)
 		if (create_ring(&ring_a) == ERROR)
 			return (1);
 		if (sort_process(&ring_a, &ring_b) == ERROR)
-			return (ERROR);
+			return (1);
 	}
 	else
 	{
@@ -52,7 +52,7 @@ int	main(int ac, char **av)
 		if (create_ring(&ring_a) == ERROR)
 			return (1);
 		if (sort_process(&ring_a, &ring_b) == ERROR)
-			return (ERROR);
+			return (1);
 		free(joined);
 	}
 	// for (int  i = 0; i < r_buff.size; i++)

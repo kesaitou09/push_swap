@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:05:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/02 22:08:00 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/04 01:28:36 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,13 +173,13 @@ char *join_args_with_spaces(int n, char **args)
 
 	if (n <= 0 || !args)
 		return NULL;
-	total = 1; /* 終端 '\0' */
+	total = 1; 
 	i = 0;
 	while (i < (size_t)n)
 	{
 		total += strlen(args[i]);
 		if (i + 1 < (size_t)n)
-			total += 1; /* スペース分 */
+			total += 1;
 		i++;
 	}
 	s = (char *)malloc(total);

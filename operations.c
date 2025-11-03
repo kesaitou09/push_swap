@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 00:06:25 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/03 21:51:50 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 00:17:37 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	swap_top(t_ring_buff *r)
 
 int	sa(t_ring_buff *ring_a, int *total)
 {
-	int succ_a;
+	int	succ_a;
 
 	succ_a = swap_top(ring_a);
 	if (succ_a == SUCCESS)
@@ -43,7 +43,7 @@ int	sa(t_ring_buff *ring_a, int *total)
 
 int	sb(t_ring_buff *ring_b, int *total)
 {
-	int succ_b;
+	int	succ_b;
 
 	succ_b = swap_top(ring_b);
 	if (succ_b == SUCCESS)
@@ -103,64 +103,88 @@ int	pb(t_ring_buff *a, t_ring_buff *b, int *total)
 	return (SUCCESS);
 }
 
-int	ra(t_ring_buff *a, int *total)
+int	ra(t_ring_buff *a, int *total, int how)
 {
 	int	tmp;
 	int	tail;
 
 	if (a->size < 2)
 		return (SUCCESS);
-	tmp = a ->buff[a ->head];
+	tmp = a->buff[a->head];
 	a->head = (a->head + 1) % a->cap;
-	tail = (a ->head + a ->size - 1) % a ->cap;
-	a ->buff[tail] = tmp;
+	tail = (a->head + a->size - 1) % a->cap;
+	a->buff[tail] = tmp;
 	(*total)++;
-	write(1, "ra\n", 3);
+	if (how)
+		write(1, "ra\n", 3);
 	return (0);
 }
-int	rb(t_ring_buff *b, int *total)
+
+int	rb(t_ring_buff *b, int *total, int how)
 {
 	int	tmp;
 	int	tail;
 
 	if (b->size < 2)
 		return (SUCCESS);
-	tmp = b ->buff[b ->head];
+	tmp = b->buff[b->head];
 	b->head = (b->head + 1) % b->cap;
-	tail = (b ->head + b ->size - 1) % b ->cap;
-	b ->buff[tail] = tmp;
+	tail = (b->head + b->size - 1) % b->cap;
+	b->buff[tail] = tmp;
 	(*total)++;
-	write(1, "ra\n", 3);
+	if (how)
+		write(1, "ra\n", 3);
 	return (0);
 }
 
-int	rra(t_ring_buff *a, int *total)
+int	rr(t_ring_buff *a, t_ring_buff *b, int *total)
 {
-	if (a->size < 2)
-		return (SUCCESS);
-	a->head = (a->head - 1 + a->cap) % a->cap;
-	(*total)++;
-	write(1, "rra\n", 4);
+	ra(a, total, 0);
+	rb(b, total, 0);
+	write(1, "rr\n", 3);
 	return (SUCCESS);
 }
 
-int	rrb(t_ring_buff *b, int *total)
+int	rra(t_ring_buff *a, int *total, int how)
 {
+	int	tmp;
+	int	tail;
+
+	tail = (a->head + a->size - 1) % a->cap;
+	tmp = a->buff[tail];
+	if (a->size < 2)
+		return (SUCCESS);
+	a->head = (a->head - 1 + a->cap) % a->cap;
+	a->buff[a->head] = tmp;
+	(*total)++;
+	if (how)
+		write(1, "rra\n", 4);
+	return (SUCCESS);
+}
+
+int	rrb(t_ring_buff *b, int *total, int how)
+{
+	int	tmp;
+	int	tail;
+
+	tail = (b->head + b->size - 1) % b->cap;
+	tmp = b->buff[tail];
 	if (b->size < 2)
 		return (SUCCESS);
 	b->head = (b->head - 1 + b->cap) % b->cap;
+	b->buff[b->head] = tmp;
 	(*total)++;
-	write(1, "rrb\n", 4);
+	if (how)
+		write(1, "rrb\n", 4);
 	return (SUCCESS);
 }
 
 int	rrr(t_ring_buff *a, t_ring_buff *b, int *total)
 {
-	if (a ->size < 2 || b -> size < 2)
+	if (a->size < 2 || b->size < 2)
 		return (SUCCESS);
-	a ->head = (a ->head - 1 + (a ->cap) % a ->cap);
-	b ->head = (b ->head - 1 + (b ->cap) % b ->cap);
-	(*total)++;
+	rra(a, total, 0);
+	rrb(b, total, 0);
 	write(1, "rrr\n", 4);
 	return (SUCCESS);
 }
