@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ring.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 07:08:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/02 08:49:47 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/03 02:28:38 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ring_load(t_ring_buff *r, int *rank, int n)
 	}
 	r ->head = 0;
 	r->size = n;
+	
 	return (SUCCESS);
 }
 
@@ -55,6 +56,5 @@ int	create_ring(t_ring_buff *r_buff)
 		return (ERROR);
 	if (ring_load(r_buff, rank, r_buff->size) == ERROR)
 		return (ERROR);
-	
 	return (SUCCESS);
 }

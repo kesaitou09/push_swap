@@ -6,7 +6,7 @@
 /*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:49:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/02 21:34:32 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/03 11:51:48 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "libft/includes/libft.h"
 # include <limits.h>
 
-# define IND(r, i) (((r)->head + (i) % (r)->cap))
+# define IND(r, i) (((r)->head + (i)) % (r)->cap)
 # define VAL(s, li) ((s)->buff[IND((s), (li))])
 
 typedef struct s_ring_buff
@@ -54,32 +54,34 @@ int					make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b);
 int					rank_helper(t_ring_buff r_buff, int *rank, size_t i,
 						size_t r);
 
-int					rb(t_ring_buff *b);
-int					ra(t_ring_buff *a);
-int					pb(t_ring_buff *a, t_ring_buff *b);
-int					pa(t_ring_buff *ring_a, t_ring_buff *ring_b);
-int					ss(t_ring_buff *ring_a, t_ring_buff *ring_b);
-int					sb(t_ring_buff *ring_b);
-int					sa(t_ring_buff *ring_a);
-int					rrb(t_ring_buff *b);
-int					rra(t_ring_buff *a);
-int					rrr(t_ring_buff *a, t_ring_buff *b);
+int					rb(t_ring_buff *b, int *total);
+int					ra(t_ring_buff *a, int *total);
+int					pb(t_ring_buff *a, t_ring_buff *b, int *total);
+int					pa(t_ring_buff *ring_a, t_ring_buff *ring_b, int *total);
+int					ss(t_ring_buff *ring_a, t_ring_buff *ring_b, int *total);
+int					sb(t_ring_buff *ring_b, int *total);
+int					sa(t_ring_buff *ring_a, int *total);
+int					rrb(t_ring_buff *b, int *total);
+int					rra(t_ring_buff *a, int *total);
+int					rrr(t_ring_buff *a, t_ring_buff *b, int *total);
 int					swap_top(t_ring_buff *r);
 
 int					sort_process(t_ring_buff *a, t_ring_buff *b);
 void				lis_dp(t_ring_buff *a, t_buff *for_lis);
 int					init_forlis(t_buff *for_lis, t_ring_buff *a, int size);
-int					push_nonlis(t_buff *for_lis, t_ring_buff *a,
-						t_ring_buff *b);
-int					search_spot(t_ring_buff *a, t_ring_buff *b);
+int					push_nonlis(t_buff *for_lis, t_ring_buff *a,t_ring_buff *b, int *total);
+// int					search_spot(t_ring_buff *a, t_ring_buff *b);
 
 //-----debug-------//
-void				random_op(t_ring_buff *a, t_ring_buff *b, t_buff *for_lis);
+// void				random_op(t_ring_buff *a, t_ring_buff *b, t_buff *for_lis);
+void				print_stack_a(t_ring_buff *a, t_buff *for_lis);
+void				print_stack_b(t_ring_buff *a, t_buff *for_lis);
 
 //-------------test-------------------//
-void				sort_from_b_simple(t_ring_buff *a, t_ring_buff *b);
-void				finish_rotate_min_to_top(t_ring_buff *a);
-void				insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b);
+void				sort_from_b_simple(t_ring_buff *a, t_ring_buff *b, int *total);
+void				finish_rotate_min_to_top(t_ring_buff *a, int *total);
+void				insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b, int *total);
 int					pos_in_a_for(const t_ring_buff *a, int b);
+char				*join_args_with_spaces(int n, char **args);
 
 #endif

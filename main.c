@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:03:03 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/02 02:15:03 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/02 23:55:40 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int ac, char **av)
 {
 	t_ring_buff	ring_a;
 	t_ring_buff	ring_b;
+	char        *joined;
 
 	init_ring_buff(&ring_a);
 	if (ac == 1)
@@ -37,12 +38,22 @@ int	main(int ac, char **av)
 			return (1);
 		if (sort_process(&ring_a, &ring_b) == ERROR)
 			return (ERROR);
-		
-			
 	}
 	else
 	{
-		return (0);
+		joined = join_args_with_spaces(ac - 1, &av[1]);
+		if (!joined)
+			return (1);
+		if (parse_ac1(&ring_a, joined) == ERROR)
+		{
+			free(joined);
+			return (1);
+		}
+		if (create_ring(&ring_a) == ERROR)
+			return (1);
+		if (sort_process(&ring_a, &ring_b) == ERROR)
+			return (ERROR);
+		free(joined);
 	}
 	// for (int  i = 0; i < r_buff.size; i++)
 	// {

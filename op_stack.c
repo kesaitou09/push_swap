@@ -6,14 +6,14 @@
 /*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 02:17:15 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/02 21:37:52 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/03 11:59:34 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b)
+int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b, int *total)
 {
 	int	n;
 	int	key;
@@ -23,9 +23,9 @@ int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b)
 	{
 		key = a->buff[a->head];
 		if (for_lis->lis_tab[key])
-			ra(a);
+			ra(a, total);
 		else
-			pb(a, b);
+			pb(a, b, total);
 	}
 	return (SUCCESS);
 }
@@ -88,15 +88,23 @@ int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b)
 
 //------------------test-----------------//
 
+/* 必要なら定義してください
+#define IND(s, li) (((s)->head + (li)) % (s)->cap)
+#define VAL(s, li) ((s)->buff[ IND((s), (li)) ])
+*/
+
+/* 最小値の論理インデックス（a->size > 0 前提） */
 static int	idx_min_logical(const t_ring_buff *a)
 {
+	int	i;
 	int	imin;
 	int	vmin;
 	int	v;
 
 	imin = 0;
 	vmin = VAL(a, 0);
-	for (int i = 1; i < a->size; i++)
+	i = 1;
+	while (i < a->size)
 	{
 		v = VAL(a, i);
 		if (v < vmin)
@@ -104,102 +112,127 @@ static int	idx_min_logical(const t_ring_buff *a)
 			vmin = v;
 			imin = i;
 		}
+		i++;
 	}
 	return (imin);
 }
 
+/* 最大値（a->size > 0 前提） */
 static int	max_val(const t_ring_buff *a)
 {
+	int	i;
 	int	vmax;
 	int	v;
 
 	vmax = VAL(a, 0);
-	for (int i = 1; i < a->size; i++)
+	i = 1;
+	while (i < a->size)
 	{
 		v = VAL(a, i);
 		if (v > vmax)
 			vmax = v;
+		i++;
 	}
 	return (vmax);
 }
 
+/* b を A に昇順で挿す論理インデックス
+   - 通常: prev<b<cur を満たす i
+   - 例外: b<min(A) または b>max(A) は min の直前（= min の index） */
 int	pos_in_a_for(const t_ring_buff *a, int b)
 {
+	int	i;
+	int	imin;
+	int	vmin;
 	int	vmax;
 	int	prev;
 	int	cur;
-	int	vmin;
-	int	imin;
 
 	if (a->size == 0)
 		return (0);
 	if (a->size == 1)
 		return ((VAL(a, 0) < b) ? 1 : 0);
 	imin = idx_min_logical(a);
+	vmin = VAL(a, imin);          /* ★必ず取得する */
 	vmax = max_val(a);
-	// 例外: 範囲外は最小の直前（= min の位置）に挿す
+
+	/* 例外: 範囲外は最小の直前 */
 	if (b < vmin || b > vmax)
 		return (imin);
-	// 通常: prev<b<cur を満たす i を探索（循環に注意）
-	for (int i = 0; i < a->size; i++)
+
+	/* 通常: prev<b<cur を満たす i を探索（循環） */
+	i = 0;
+	while (i < a->size)
 	{
 		prev = VAL(a, (i - 1 + a->size) % a->size);
 		cur = VAL(a, i);
 		if (prev < b && b < cur)
 			return (i);
+		i++;
 	}
-	// フォールバック（理論上到達しないが安全側で最小の直前）
+	/* 安全側フォールバック（理論上は到達しない） */
 	return (imin);
 }
 
-static inline int	rot_cost(int idx, int n)
+/* 先頭(論理0)へ最短で寄せる符号付き回転数（+ra / -rra） */
+static int	rot_cost(int idx, int n)
 {
-	return ((idx <= n / 2) ? idx : idx - n);
+	if (idx <= n / 2)
+		return (idx);
+	return (idx - n); /* 例: n=10, idx=8 → -2 */
 }
 
-static void	rotate_a_to(t_ring_buff *a, int pos)
+/* A を pos が先頭に来るまで最短回転 */
+static void	rotate_a_to(t_ring_buff *a, int pos, int *total)
 {
 	int	ca;
 
+	if (a->size <= 1)
+		return ;
 	ca = rot_cost(pos, a->size);
 	while (ca > 0)
 	{
-		ra(a);
+		ra(a, total);
 		ca--;
 	}
 	while (ca < 0)
 	{
-		rra(a);
+		rra(a, total);
 		ca++;
 	}
 }
 
-// 使い方（b は B の先頭だとする）
-void	insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b)
+/* B の先頭を “追加手ゼロ” の位置に挿入（まず動く版） */
+void	insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b, int *total)
 {
 	int	bval;
+	int	pos;
 
-	bval = b->buff[b->head];
-	int pos = pos_in_a_for(a, bval); // “pa直後に円整列が壊れない位置”
-	rotate_a_to(a, pos);             // ★ここまでで A 側の回転手数が最小
-	pa(a, b);                        // ★これで追加の修正手が不要（=最小手）
+	if (b->size == 0)
+		return ;
+	bval = b->buff[b->head];           /* B 先頭の値（物理 head） */
+	pos = pos_in_a_for(a, bval);       /* pa直後に円整列が崩れない位置 */
+	rotate_a_to(a, pos, total);               /* A 側の回転を最短化 */
+	pa(a, b, total);                          /* 追加の修正手不要で挿入 */
 }
 
-void	finish_rotate_min_to_top(t_ring_buff *a)
+/* 仕上げ：A の最小を先頭へ */
+void	finish_rotate_min_to_top(t_ring_buff *a, int *total)
 {
+	int	pos;
+
 	if (a->size == 0)
 		return ;
-	rotate_a_to(a, idx_min_logical(a));
+	pos = idx_min_logical(a);
+	rotate_a_to(a, pos, total);
 }
 
-// ここに来るまでに：LIS を A に残し、非 LIS をすべて B へ pb 済み
-void	sort_from_b_simple(t_ring_buff *a, t_ring_buff *b)
+/* ここに来るまでに：LIS を A に残し、非 LIS をすべて B に pb 済み */
+void	sort_from_b_simple(t_ring_buff *a, t_ring_buff *b, int *total)
 {
 	while (b->size > 0)
-	{
-		insert_top_b_into_a_minops(a, b);
-	}
-	finish_rotate_min_to_top(a);
+		insert_top_b_into_a_minops(a, b, total);
+	finish_rotate_min_to_top(a, total);
 }
 
 // void	random_op(t_ring_buff *a, t_ring_buff *b, t_buff *for_lis)

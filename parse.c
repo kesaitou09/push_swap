@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:05:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/02 08:00:44 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/02 22:08:00 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,4 +157,45 @@ int	rank_helper(t_ring_buff r_buff, int *rank, size_t i, size_t r)
 		i++;
 	}
 	return (1);
+}
+
+
+#include <stdlib.h>
+#include <string.h>
+
+/* av[1..ac-1] を "arg1 arg2 arg3 ..." に連結して返す。失敗時 NULL。*/
+char *join_args_with_spaces(int n, char **args)
+{
+	size_t i;
+	size_t total;
+	char   *s;
+	char   *p;
+
+	if (n <= 0 || !args)
+		return NULL;
+	total = 1; /* 終端 '\0' */
+	i = 0;
+	while (i < (size_t)n)
+	{
+		total += strlen(args[i]);
+		if (i + 1 < (size_t)n)
+			total += 1; /* スペース分 */
+		i++;
+	}
+	s = (char *)malloc(total);
+	if (!s)
+		return NULL;
+	p = s;
+	i = 0;
+	while (i < (size_t)n)
+	{
+		size_t len = strlen(args[i]);
+		memcpy(p, args[i], len);
+		p += len;
+		if (i + 1 < (size_t)n)
+			*p++ = ' ';
+		i++;
+	}
+	*p = '\0';
+	return s;
 }
