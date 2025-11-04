@@ -6,55 +6,11 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:05:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 03:21:57 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 11:22:31 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static int	ft_isspace(char c)
-{
-	return (c == ' ' || c == '\t' || c == '\n' || c == '\f' || c == '\r'
-		|| c == '\v');
-}
-
-static void	atoll_helper(char ***av, long long *lim, int *sign)
-{
-	*sign = 1;
-	*lim = (long long)INT_MAX;
-	if (***av == '+' || ***av == '-')
-	{
-		if (***av == '-')
-		{
-			*sign = -1;
-			*lim = (long long)INT_MAX + 1;
-		}
-		(**av)++;
-	}
-}
-
-long long	ft_atoll(char **av, int *err)
-{
-	long long	result;
-	long long	lim;
-	int			sign;
-	int			digit;
-
-	result = 0;
-	digit = 0;
-	while (ft_isspace(**av))
-		(*av)++;
-	atoll_helper(&av, &lim, &sign);
-	while (**av >= '0' && **av <= '9')
-	{
-		digit = **av - '0';
-		if (result > lim / 10 || (result == lim / 10 && digit > (lim % 10)))
-			return (*err = 1, 0);
-		result = result * 10 + digit;
-		(*av)++;
-	}
-	return (result * sign);
-}
 
 int	token_checker(char *av, size_t *size)
 {
@@ -81,7 +37,7 @@ int	token_checker(char *av, size_t *size)
 	return (SUCCESS);
 }
 
-int	init_buff(t_ring_buff *r_buff, char *av, size_t size)
+int	init_ring(t_ring_buff *ring_a, char *av, size_t size)
 {
 	size_t	i;
 	int		err;
@@ -92,110 +48,31 @@ int	init_buff(t_ring_buff *r_buff, char *av, size_t size)
 	digit = 0;
 	if (size == 0)
 		return (ERROR);
+	ring_a->cap = size;
+	ring_a->head = 0;
+	ring_a->buff = malloc(sizeof(int) * size);
+	if (!ring_a->buff)
+		return (ERROR);
 	while (i < size)
 	{
 		digit = ft_atoll(&av, &err);
 		if (err)
 			return (ERROR);
-		r_buff->buff[((r_buff->head + i) % r_buff->cap)] = digit;
+		ring_a->buff[((ring_a->head + i) % ring_a->cap)] = digit;
 		i++;
 	}
 	return (SUCCESS);
 }
 
-int	parse_ac1(t_ring_buff *r_buff, char *av)
+int	parse_arg(t_ring_buff *ring_a, char *av)
 {
 	size_t	size;
 
 	size = 0;
 	if (token_checker(av, &size) == ERROR)
 		return (ERROR);
-	r_buff->cap = size;
-	r_buff->head = 0;
-	r_buff->buff = malloc(sizeof(int) * size);
-	if (!r_buff->buff)
-		return (ERROR);
-	if (init_buff(r_buff, av, size) == ERROR)
-		return (free(r_buff->buff), r_buff->buff = NULL, ERROR);
-	r_buff->size = size;
+	if (init_ring(ring_a, av, size) == ERROR)
+		return (free(ring_a->buff), ring_a->buff = NULL, ERROR);
+	ring_a->size = size;
 	return (SUCCESS);
-}
-
-int	grant_rank(t_ring_buff r_buff, int *rank)
-{
-	size_t	i;
-	int		r;
-
-	i = 0;
-	r = 0;
-	if (rank_helper(r_buff, rank, i, r) == ERROR)
-		return (ERROR);
-	return (1);
-}
-
-int	rank_helper(t_ring_buff r_buff, int *rank, int i, int r)
-{
-	int		j;
-	int		vi;
-	int		vj;
-
-	while (i < r_buff.size)
-	{
-		vi = r_buff.buff[(r_buff.head + i) % r_buff.cap];
-		j = 0;
-		r = 0;
-		while (j < r_buff.size)
-		{
-			vj = r_buff.buff[(r_buff.head + j) % r_buff.cap];
-			if (i != j && vi == vj)
-				return (0);
-			if (vj < vi)
-				r++;
-			j++;
-		}
-		rank[i] = r;
-		i++;
-	}
-	return (1);
-}
-
-#include <stdlib.h>
-#include <string.h>
-
-/* av[1..ac-1] を "arg1 arg2 arg3 ..." に連結して返す。失敗時 NULL。*/
-char	*join_args_with_spaces(int n, char **args)
-{
-	size_t	i;
-	size_t	total;
-	char	*s;
-	char	*p;
-	size_t	len;
-
-	if (n <= 0 || !args)
-		return (NULL);
-	total = 1;
-	i = 0;
-	while (i < (size_t)n)
-	{
-		total += strlen(args[i]);
-		if (i + 1 < (size_t)n)
-			total += 1;
-		i++;
-	}
-	s = (char *)malloc(total);
-	if (!s)
-		return (NULL);
-	p = s;
-	i = 0;
-	while (i < (size_t)n)
-	{
-		len = strlen(args[i]);
-		memcpy(p, args[i], len);
-		p += len;
-		if (i + 1 < (size_t)n)
-			*p++ = ' ';
-		i++;
-	}
-	*p = '\0';
-	return (s);
 }

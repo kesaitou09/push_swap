@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 02:17:15 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 04:07:07 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 13:47:23 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,45 +81,42 @@ static int	merged_cost(int a_cost, int b_cost)
 		return (max(my_abs(a_cost), my_abs(b_cost)));
 	return (my_abs(a_cost) + my_abs(b_cost));
 }
-//コストの最大値、コストの合計を計算する関数
 
-static int	rot_cost(int idx, int n)
+static int	calc_cost(int idx, int size)
 {
-	if (idx <= n / 2)
+	if (idx <= size / 2)
 		return (idx);
-	return (idx - n);
+	return (idx - size);
 }
 
 static void	init_tmove(t_move *best)
 {
-	best ->a_cost = 0;
-	best ->b_cost = 0;
-	best ->ib = 0;
-	best ->pos_a = 0;
-	best ->cost = INT_MAX;
+	best->a_cost = 0;
+	best->b_cost = 0;
+	best->id_sb = 0;
+	best->pos_a = 0;
+	best->cost = INT_MAX;
 }
 
-t_move	best_move(t_ring_buff *a, t_ring_buff *b)
+t_move	best_move(t_ring_buff *a, t_ring_buff *b, t_move best)
 {
-	t_move	best;
 	int		id_sb;
 	int		bval;
 	int		pos;
 	int		c;
 
-	init_tmove(&best);
 	id_sb = 0;
 	while (id_sb < b->size)
 	{
 		bval = VAL(b, id_sb);
 		pos = pos_in_a_for(a, bval);
-		c = merged_cost(rot_cost(pos, a->size), rot_cost(id_sb, b ->size));
+		c = merged_cost(calc_cost(pos, a->size), calc_cost(id_sb, b->size));
 		if (c < best.cost)
 		{
-			best.ib = id_sb;
+			best.id_sb = id_sb;
 			best.pos_a = pos;
-			best.a_cost = rot_cost(pos, a->size);
-			best.b_cost = rot_cost(id_sb, b ->size);
+			best.a_cost = calc_cost(pos, a->size);
+			best.b_cost = calc_cost(id_sb, b->size);
 			best.cost = c;
 		}
 		id_sb++;
@@ -200,7 +197,7 @@ static void	rotate_a_to(t_ring_buff *a, int pos, int *total)
 
 	if (a->size <= 1)
 		return ;
-	ca = rot_cost(pos, a->size);
+	ca = calc_cost(pos, a->size);
 	while (ca > 0)
 	{
 		ra(a, total, 1);
@@ -239,10 +236,12 @@ void	finish_rotate_min_to_top(t_ring_buff *a, int *total)
 void	sort_from_b(t_ring_buff *a, t_ring_buff *b, int *total)
 {
 	t_move	m;
+	t_move best;
 
+	init_tmove(&best);
 	while (b->size > 0)
 	{
-		m = best_move(a, b);
+		m = best_move(a, b, best);
 		apply_move(a, b, m, total);
 	}
 	finish_rotate_min_to_top(a, total);
