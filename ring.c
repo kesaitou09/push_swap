@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 07:08:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 15:41:52 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 17:16:11 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,12 @@ int	make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b)
 	ring_b->head = 0;
 	ring_b->size = 0;
 	return (SUCCESS);
+}
+
+void	init_ring_buff(t_ring_buff *ring_a)
+{
+	ring_a->buff = NULL;
+	ring_a->cap = 0;
+	ring_a->head = 0;
+	ring_a->size = 0;
 }
