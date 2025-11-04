@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:49:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 16:10:33 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 17:11:43 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define PUSH_SWAP_H
 
 # include "libft/includes/ft_printf.h"
+# include "libft/includes/get_next_line.h"
 # include "libft/includes/libft.h"
-#include "libft/includes/get_next_line.h"
 # include <limits.h>
 
 # define IND(r, i) (((r)->head + (i)) % (r)->cap)
@@ -80,7 +80,7 @@ int			swap_top(t_ring_buff *r);
 
 void		lis(t_ring_buff *a, t_buff *for_lis);
 void		mark_flag(t_buff *for_lis);
-int			search_listab(t_buff *for_lis, int i, int size);
+// int			search_listab(t_buff *for_lis, int i, int size);
 int			sort_process(t_ring_buff *a, t_ring_buff *b);
 void		lis_dp(t_ring_buff *a, t_buff *for_lis);
 int			init_forlis(t_buff *for_lis, t_ring_buff *a, int size);

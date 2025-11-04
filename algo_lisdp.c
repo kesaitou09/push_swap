@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:17:23 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 16:37:32 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 17:10:07 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,19 @@ void	lis_dp(t_ring_buff *a, t_buff *for_lis)
 	}
 }
 
-
 void	lis(t_ring_buff *a, t_buff *for_lis)
 {
 	lis_dp(a, for_lis);
 	mark_flag(for_lis);
 }
 
-int	search_listab(t_buff *for_lis, int i, int size)
-{
-	
-	
-	
-	
-	
-	
-}
+// int	search_listab(t_buff *for_lis, int i, int size)
+// {
+// 	while (i < size)
+// 	{
+// 		if (for_lis->lis_tab[i] == 1)
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }

@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 22:58:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 11:27:19 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/04 17:07:24 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b, int *total)
 		{
 			pb(a, b, total);
 		}
-		if (search_listab(for_lis, i + 1, n) == 0)
-			break ;
+		// if (search_listab(for_lis, i + 1, n) == 0)
+		// 	break ;
 		i++;
 	}
 	return (SUCCESS);

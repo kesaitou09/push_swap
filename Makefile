@@ -6,7 +6,7 @@
 #    By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/30 14:43:16 by kesaitou          #+#    #+#              #
-#    Updated: 2025/11/04 16:20:58 by kesaitou         ###   ########.fr        #
+#    Updated: 2025/11/04 17:05:15 by kesaitou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LDLIBS = -lft
 
 
 MAND_SRCS = op_stack.c ring.c main.c operations.c parse.c sort.c parse_utils.c algo_lisdp.c
-MAND_OBJS = $(SRCS:.c=.o)
+MAND_OBJS = $(MAND_SRCS:.c=.o)
 
 BONUS_SRCS = checker.c
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
@@ -37,10 +37,10 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFTDIR)
 
 $(NAME):$(MAND_OBJS) $(LIBFT)
-	$(CC) $(MAND_SRCS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
+	$(CC) $(MAND_OBJS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
 $(BONUS): $(BONUS_OBJS) $(LIBFT)
-	$(CC) $(BONUS_SRCS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
+	$(CC) $(BONUS_OBJS) $(LDFLAGS) $(LDLIBS) -o $(BONUS)
 	
 %.o : %.c
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
@@ -50,7 +50,7 @@ clean:
 	$(MAKE) -C $(LIBFTDIR) clean
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(BONUS)
 	$(MAKE) -C $(LIBFTDIR) fclean
 
 re: fclean all
