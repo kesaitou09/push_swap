@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 00:41:39 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/05 21:11:58 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 01:36:16 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	controll_process(t_ring_buff *ring_a, t_ring_buff *ring_b, char *av)
 		return ((free(ring_a ->buff)), 1);
 	if (controll_sort(ring_a, ring_b) == ERROR)
 		return (1);
+	
 	return (0);
 }
 

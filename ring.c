@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 07:08:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 17:16:11 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 01:36:01 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	create_ring(t_ring_buff *ring_a)
 		return (ERROR);
 	if (ring_load(ring_a, rank, ring_a->size) == ERROR)
 		return (ERROR);
+	free(rank);
 	return (SUCCESS);
 }
 

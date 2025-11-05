@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:49:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/05 21:53:49 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 01:34:24 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int			create_ring(t_ring_buff *ring_a);
 int			ring_load(t_ring_buff *ring_a, int *rank, int n);
 int			make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b);
 int			rank_helper(t_ring_buff ring_a, int *rank, int i, int r);
+void		free_all(t_buff *forlis);
 
 int			rr(t_ring_buff *a, t_ring_buff *b);
 int			rb(t_ring_buff *b, int how);
