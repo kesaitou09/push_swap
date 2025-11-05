@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:49:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 05:10:13 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 06:29:36 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,23 @@ void		print_stack_b(t_ring_buff *a);
 void		print_dp_prev_listab(t_ring_buff *a, t_buff for_lis);
 
 int			controll_sort(t_ring_buff *ring_a, t_ring_buff *ring_b);
-int			sort_less_than_six(t_ring_buff *ring_a, t_ring_buff *ring_b);
+int			sort_five(t_ring_buff *ring_a, t_ring_buff *ring_b);
 int			sort_three(t_ring_buff *ring_a);
 int			is_ascending(t_ring_buff *ring_a);
 int			is_descending(t_ring_buff *ring_a);
 
+int			search_position(t_ring_buff *ring_a, int b);
+void		rotate_a_to(t_ring_buff *a, int pos);
+void		double_rotate(t_ring_buff *a, t_ring_buff *b, t_move *m);
+
+int			same_sign(int a, int b);
+int			max_val(t_ring_buff *a);
+int			idx_min_logical(t_ring_buff *a);
+int			max(int a, int b);
+int			my_abs(int x);
+
+int			calc_cost(int idx, int size);
+int			merged_cost(int a_cost, int b_cost);
 void		sort_from_b(t_ring_buff *a, t_ring_buff *b);
 void		finish_rotate_min_to_top(t_ring_buff *a);
 void		insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b);
@@ -103,6 +115,5 @@ char		*arg_join(int ac, char **av);
 void		apply_move(t_ring_buff *a, t_ring_buff *b, t_move m);
 t_move		best_move(t_ring_buff *a, t_ring_buff *b, t_move best);
 int			search_listab(t_buff *for_lis, int i, int size);
-
 
 #endif

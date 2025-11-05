@@ -6,7 +6,7 @@
 #    By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/30 14:43:16 by kesaitou          #+#    #+#              #
-#    Updated: 2025/11/06 03:52:17 by kesaitou         ###   ########.fr        #
+#    Updated: 2025/11/06 06:40:02 by kesaitou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,23 @@ LDFLAGS = -L $(LIBDIR)
 LDLIBS = -lft
 
 
-MAND_SRCS = op_stack.c ring.c main.c operations.c parse.c sort.c parse_utils.c algo_lisdp.c debug.c
+MAND_SRCS = do_best_rotate.c \
+			ring.c \
+			main.c \
+			operation_rotate_one.c \
+			operation_rotate_two.c \
+			operation_push.c \
+			operation_swap.c \
+			parse.c sort.c \
+			parse_utils.c \
+			algo_lisdp.c \
+			get_info_to.c \
+			tark_utils.c \
+			manage_sort.c \
+			manage_insert.c \
+			
+
+
 MAND_OBJS = $(MAND_SRCS:.c=.o)
 
 BONUS_SRCS = checker.c op_stack.c ring.c operations.c parse.c sort.c parse_utils.c algo_lisdp.c

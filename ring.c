@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 07:08:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 02:49:04 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 06:42:14 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	create_ring(t_ring_buff *ring_a)
 		return (ERROR);
 	if (grant_rank(*ring_a, rank) == ERROR)
 		return ((free(rank)), ERROR);
-	ring_load(ring_a, rank, ring_a ->size);
+	ring_load(ring_a, rank, ring_a->size);
 	free(rank);
 	return (SUCCESS);
 }
@@ -76,17 +76,6 @@ void	ring_load(t_ring_buff *ring_a, int *rank, int n)
 	}
 	ring_a->head = 0;
 	ring_a->size = n;
-}
-
-int	make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b)
-{
-	ring_b->cap = ring_a->cap;
-	ring_b->buff = malloc(sizeof(int) * (ring_b->cap));
-	if (!ring_b->buff)
-		return (ERROR);
-	ring_b->head = 0;
-	ring_b->size = 0;
-	return (SUCCESS);
 }
 
 void	init_ring_buff(t_ring_buff *ring_a)

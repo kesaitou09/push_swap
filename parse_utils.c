@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 10:34:43 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 04:21:55 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 06:42:44 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*arg_join(int ac, char **av)
 {
 	char	*newstr;
 	char	*joined;
-	char 	*tmp;
+	char	*tmp;
 	int		i;
 
 	i = 1;
