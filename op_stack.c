@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 02:17:15 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 13:47:23 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/05 21:51:43 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ static void	init_tmove(t_move *best)
 
 t_move	best_move(t_ring_buff *a, t_ring_buff *b, t_move best)
 {
-	int		id_sb;
-	int		bval;
-	int		pos;
-	int		c;
+	int	id_sb;
+	int	bval;
+	int	pos;
+	int	c;
 
 	id_sb = 0;
 	while (id_sb < b->size)
@@ -124,41 +124,41 @@ t_move	best_move(t_ring_buff *a, t_ring_buff *b, t_move best)
 	return (best);
 }
 
-void	apply_move(t_ring_buff *a, t_ring_buff *b, t_move m, int *total)
+void	apply_move(t_ring_buff *a, t_ring_buff *b, t_move m)
 {
 	while (m.a_cost > 0 && m.b_cost > 0)
 	{
-		rr(a, b, total);
+		rr(a, b);
 		m.a_cost--;
 		m.b_cost--;
 	}
 	while (m.a_cost < 0 && m.b_cost < 0)
 	{
-		rrr(a, b, total);
+		rrr(a, b);
 		m.a_cost++;
 		m.b_cost++;
 	}
 	while (m.a_cost > 0)
 	{
-		ra(a, total, 1);
+		ra(a, 1);
 		m.a_cost--;
 	}
 	while (m.a_cost < 0)
 	{
-		rra(a, total, 1);
+		rra(a, 1);
 		m.a_cost++;
 	}
 	while (m.b_cost > 0)
 	{
-		rb(b, total, 1);
+		rb(b, 1);
 		m.b_cost--;
 	}
 	while (m.b_cost < 0)
 	{
-		rrb(b, total, 1);
+		rrb(b, 1);
 		m.b_cost++;
 	}
-	pa(a, b, total);
+	pa(a, b);
 }
 
 int	pos_in_a_for(t_ring_buff *a, int b)
@@ -191,7 +191,7 @@ int	pos_in_a_for(t_ring_buff *a, int b)
 	return (imin);
 }
 
-static void	rotate_a_to(t_ring_buff *a, int pos, int *total)
+static void	rotate_a_to(t_ring_buff *a, int pos)
 {
 	int	ca;
 
@@ -200,17 +200,17 @@ static void	rotate_a_to(t_ring_buff *a, int pos, int *total)
 	ca = calc_cost(pos, a->size);
 	while (ca > 0)
 	{
-		ra(a, total, 1);
+		ra(a, 1);
 		ca--;
 	}
 	while (ca < 0)
 	{
-		rra(a, total, 1);
+		rra(a, 1);
 		ca++;
 	}
 }
 
-void	insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b, int *total)
+void	insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b)
 {
 	int	bval;
 	int	pos;
@@ -219,30 +219,30 @@ void	insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b, int *total)
 		return ;
 	bval = b->buff[b->head];
 	pos = pos_in_a_for(a, bval);
-	rotate_a_to(a, pos, total);
-	pa(a, b, total);
+	rotate_a_to(a, pos);
+	pa(a, b);
 }
 
-void	finish_rotate_min_to_top(t_ring_buff *a, int *total)
+void	finish_rotate_min_to_top(t_ring_buff *a)
 {
 	int	pos;
 
 	if (a->size == 0)
 		return ;
 	pos = idx_min_logical(a);
-	rotate_a_to(a, pos, total);
+	rotate_a_to(a, pos);
 }
 
-void	sort_from_b(t_ring_buff *a, t_ring_buff *b, int *total)
+void	sort_from_b(t_ring_buff *a, t_ring_buff *b)
 {
 	t_move	m;
-	t_move best;
+	t_move	best;
 
 	init_tmove(&best);
 	while (b->size > 0)
 	{
 		m = best_move(a, b, best);
-		apply_move(a, b, m, total);
+		apply_move(a, b, m);
 	}
-	finish_rotate_min_to_top(a, total);
+	finish_rotate_min_to_top(a);
 }

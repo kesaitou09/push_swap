@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 00:06:25 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 03:59:43 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/05 22:45:02 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	swap_top(t_ring_buff *r)
 	return (SUCCESS);
 }
 
-int	sa(t_ring_buff *ring_a, int *total)
+int	sa(t_ring_buff *ring_a)
 {
 	int	succ_a;
 
@@ -36,12 +36,11 @@ int	sa(t_ring_buff *ring_a, int *total)
 	if (succ_a == SUCCESS)
 	{
 		write(1, "sa\n", 3);
-		(*total)++;
 	}
 	return (SUCCESS);
 }
 
-int	sb(t_ring_buff *ring_b, int *total)
+int	sb(t_ring_buff *ring_b)
 {
 	int	succ_b;
 
@@ -49,12 +48,11 @@ int	sb(t_ring_buff *ring_b, int *total)
 	if (succ_b == SUCCESS)
 	{
 		write(1, "sb\n", 3);
-		(*total)++;
 	}
 	return (SUCCESS);
 }
 
-int	ss(t_ring_buff *ring_a, t_ring_buff *ring_b, int *total)
+int	ss(t_ring_buff *ring_a, t_ring_buff *ring_b)
 {
 	int	succ_a;
 	int	succ_b;
@@ -64,12 +62,11 @@ int	ss(t_ring_buff *ring_a, t_ring_buff *ring_b, int *total)
 	if (succ_a == SUCCESS && succ_b == SUCCESS)
 	{
 		write(1, "ss\n", 3);
-		(*total)++;
 	}
 	return (SUCCESS);
 }
 
-int	pa(t_ring_buff *ring_a, t_ring_buff *ring_b, int *total)
+int	pa(t_ring_buff *ring_a, t_ring_buff *ring_b)
 {
 	int	x;
 
@@ -81,12 +78,11 @@ int	pa(t_ring_buff *ring_a, t_ring_buff *ring_b, int *total)
 	ring_a->head = (ring_a->head - 1 + ring_a->cap) % ring_a->cap;
 	ring_a->buff[ring_a->head] = x;
 	ring_a->size++;
-	(*total)++;
 	write(1, "pa\n", 3);
 	return (SUCCESS);
 }
 
-int	pb(t_ring_buff *a, t_ring_buff *b, int *total)
+int	pb(t_ring_buff *a, t_ring_buff *b)
 {
 	int	x;
 
@@ -98,12 +94,11 @@ int	pb(t_ring_buff *a, t_ring_buff *b, int *total)
 	b->head = (b->head - 1 + b->cap) % b->cap;
 	b->buff[b->head] = x;
 	b->size++;
-	(*total)++;
 	write(1, "pb\n", 3);
 	return (SUCCESS);
 }
 
-int	ra(t_ring_buff *a, int *total, int how)
+int	ra(t_ring_buff *a, int how)
 {
 	int	tmp;
 	int	tail;
@@ -114,13 +109,12 @@ int	ra(t_ring_buff *a, int *total, int how)
 	a->head = (a->head + 1) % a->cap;
 	tail = (a->head + a->size - 1) % a->cap;
 	a->buff[tail] = tmp;
-	(*total)++;
 	if (how)
 		write(1, "ra\n", 3);
 	return (0);
 }
 
-int	rb(t_ring_buff *b, int *total, int how)
+int	rb(t_ring_buff *b, int how)
 {
 	int	tmp;
 	int	tail;
@@ -131,21 +125,20 @@ int	rb(t_ring_buff *b, int *total, int how)
 	b->head = (b->head + 1) % b->cap;
 	tail = (b->head + b->size - 1) % b->cap;
 	b->buff[tail] = tmp;
-	(*total)++;
 	if (how)
 		write(1, "rb\n", 3);
 	return (0);
 }
 
-int	rr(t_ring_buff *a, t_ring_buff *b, int *total)
+int	rr(t_ring_buff *a, t_ring_buff *b)
 {
-	ra(a, total, 0);
-	rb(b, total, 0);
+	ra(a, 0);
+	rb(b, 0);
 	write(1, "rr\n", 3);
 	return (SUCCESS);
 }
 
-int	rra(t_ring_buff *a, int *total, int how)
+int	rra(t_ring_buff *a, int how)
 {
 	int	tmp;
 	int	tail;
@@ -156,13 +149,12 @@ int	rra(t_ring_buff *a, int *total, int how)
 		return (SUCCESS);
 	a->head = (a->head - 1 + a->cap) % a->cap;
 	a->buff[a->head] = tmp;
-	(*total)++;
 	if (how)
 		write(1, "rra\n", 4);
 	return (SUCCESS);
 }
 
-int	rrb(t_ring_buff *b, int *total, int how)
+int	rrb(t_ring_buff *b, int how)
 {
 	int	tmp;
 	int	tail;
@@ -173,18 +165,17 @@ int	rrb(t_ring_buff *b, int *total, int how)
 		return (SUCCESS);
 	b->head = (b->head - 1 + b->cap) % b->cap;
 	b->buff[b->head] = tmp;
-	(*total)++;
 	if (how)
 		write(1, "rrb\n", 4);
 	return (SUCCESS);
 }
 
-int	rrr(t_ring_buff *a, t_ring_buff *b, int *total)
+int	rrr(t_ring_buff *a, t_ring_buff *b)
 {
 	if (a->size < 2 || b->size < 2)
 		return (SUCCESS);
-	rra(a, total, 0);
-	rrb(b, total, 0);
+	rra(a, 0);
+	rrb(b, 0);
 	write(1, "rrr\n", 4);
 	return (SUCCESS);
 }

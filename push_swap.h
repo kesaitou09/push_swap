@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:49:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 17:11:43 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/05 21:53:49 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,39 +65,42 @@ int			ring_load(t_ring_buff *ring_a, int *rank, int n);
 int			make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b);
 int			rank_helper(t_ring_buff ring_a, int *rank, int i, int r);
 
-int			rr(t_ring_buff *a, t_ring_buff *b, int *total);
-int			rb(t_ring_buff *b, int *total, int how);
-int			ra(t_ring_buff *a, int *total, int how);
-int			pb(t_ring_buff *a, t_ring_buff *b, int *total);
-int			pa(t_ring_buff *ring_a, t_ring_buff *ring_b, int *total);
-int			ss(t_ring_buff *ring_a, t_ring_buff *ring_b, int *total);
-int			sb(t_ring_buff *ring_b, int *total);
-int			sa(t_ring_buff *ring_a, int *total);
-int			rrb(t_ring_buff *b, int *total, int how);
-int			rra(t_ring_buff *a, int *total, int how);
-int			rrr(t_ring_buff *a, t_ring_buff *b, int *total);
+int			rr(t_ring_buff *a, t_ring_buff *b);
+int			rb(t_ring_buff *b, int how);
+int			ra(t_ring_buff *a, int how);
+int			pb(t_ring_buff *a, t_ring_buff *b);
+int			pa(t_ring_buff *ring_a, t_ring_buff *ring_b);
+int			ss(t_ring_buff *ring_a, t_ring_buff *ring_b);
+int			sb(t_ring_buff *ring_b);
+int			sa(t_ring_buff *ring_a);
+int			rrb(t_ring_buff *b, int how);
+int			rra(t_ring_buff *a, int how);
+int			rrr(t_ring_buff *a, t_ring_buff *b);
 int			swap_top(t_ring_buff *r);
 
 void		lis(t_ring_buff *a, t_buff *for_lis);
 void		mark_flag(t_buff *for_lis);
-// int			search_listab(t_buff *for_lis, int i, int size);
 int			sort_process(t_ring_buff *a, t_ring_buff *b);
 void		lis_dp(t_ring_buff *a, t_buff *for_lis);
 int			init_forlis(t_buff *for_lis, t_ring_buff *a, int size);
-int			push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b,
-				int *total);
+int			push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b);
 
 void		print_stack_a(t_ring_buff *a);
 void		print_stack_b(t_ring_buff *a);
 void		print_dp_prev_listab(t_ring_buff *a, t_buff for_lis);
 
-void		sort_from_b(t_ring_buff *a, t_ring_buff *b, int *total);
-void		finish_rotate_min_to_top(t_ring_buff *a, int *total);
-void		insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b,
-				int *total);
+int			controll_sort(t_ring_buff *ring_a, t_ring_buff *ring_b);
+int			sort_less_than_six(t_ring_buff *ring_a, t_ring_buff *ring_b);
+int			sort_three(t_ring_buff *ring_a);
+int			is_ascending(t_ring_buff *ring_a);
+int			is_descending(t_ring_buff *ring_a);
+
+void		sort_from_b(t_ring_buff *a, t_ring_buff *b);
+void		finish_rotate_min_to_top(t_ring_buff *a);
+void		insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b);
 int			pos_in_a_for(t_ring_buff *a, int b);
 char		*arg_join(int ac, char **av);
-void		apply_move(t_ring_buff *a, t_ring_buff *b, t_move m, int *total);
+void		apply_move(t_ring_buff *a, t_ring_buff *b, t_move m);
 t_move		best_move(t_ring_buff *a, t_ring_buff *b, t_move best);
 
 #endif
