@@ -6,7 +6,7 @@
 #    By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/30 14:43:16 by kesaitou          #+#    #+#              #
-#    Updated: 2025/11/05 23:25:25 by kesaitou         ###   ########.fr        #
+#    Updated: 2025/11/06 03:52:17 by kesaitou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = push_swap
 BONUS = checker
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
+
 
 LIBFTDIR = libft
 LIBFT = $(LIBFTDIR)/libft.a
@@ -54,5 +55,6 @@ fclean: clean
 	$(MAKE) -C $(LIBFTDIR) fclean
 
 re: fclean all
+
 
 .PHONY: all clean fclean re

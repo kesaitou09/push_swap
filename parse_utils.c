@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 10:34:43 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 10:43:25 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 04:21:55 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*arg_join(int ac, char **av)
 {
 	char	*newstr;
 	char	*joined;
+	char 	*tmp;
 	int		i;
 
 	i = 1;
@@ -30,14 +31,18 @@ char	*arg_join(int ac, char **av)
 		return (NULL);
 	while (i < ac)
 	{
+		tmp = joined;
 		newstr = ft_strjoin(joined, av[i++]);
 		if (!newstr)
 			return ((free_two(joined, newstr)), NULL);
+		free(tmp);
 		joined = newstr;
+		tmp = joined;
 		newstr = ft_strjoin(joined, " ");
 		if (!newstr)
 			return ((free_two(joined, newstr)), NULL);
 		joined = newstr;
+		free(tmp);
 	}
 	return (joined);
 }

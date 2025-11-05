@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:49:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 01:34:24 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 05:10:13 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "libft/includes/libft.h"
 # include <limits.h>
 
-# define IND(r, i) (((r)->head + (i)) % (r)->cap)
-# define VAL(s, li) ((s)->buff[IND((s), (li))])
+# define IND(ring, i) (((ring)->head + (i)) % (ring)->cap)
+# define VAL(ring, i) ((ring)->buff[IND((ring), (i))])
 
 typedef struct s_ring_buff
 {
@@ -34,7 +34,6 @@ typedef struct s_buff
 {
 	int		*dp;
 	int		*prev;
-	int		*phys;
 	int		*lis_tab;
 	int		max_len;
 	int		end;
@@ -61,7 +60,7 @@ int			init_ring(t_ring_buff *ring_a, char *av, size_t size);
 void		init_ring_buff(t_ring_buff *ring_a);
 int			grant_rank(t_ring_buff ring_a, int *rank);
 int			create_ring(t_ring_buff *ring_a);
-int			ring_load(t_ring_buff *ring_a, int *rank, int n);
+void		ring_load(t_ring_buff *ring_a, int *rank, int n);
 int			make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b);
 int			rank_helper(t_ring_buff ring_a, int *rank, int i, int r);
 void		free_all(t_buff *forlis);
@@ -83,7 +82,7 @@ void		lis(t_ring_buff *a, t_buff *for_lis);
 void		mark_flag(t_buff *for_lis);
 int			sort_process(t_ring_buff *a, t_ring_buff *b);
 void		lis_dp(t_ring_buff *a, t_buff *for_lis);
-int			init_forlis(t_buff *for_lis, t_ring_buff *a, int size);
+int			init_forlis(t_buff *for_lis, int size);
 int			push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b);
 
 void		print_stack_a(t_ring_buff *a);
@@ -103,5 +102,7 @@ int			pos_in_a_for(t_ring_buff *a, int b);
 char		*arg_join(int ac, char **av);
 void		apply_move(t_ring_buff *a, t_ring_buff *b, t_move m);
 t_move		best_move(t_ring_buff *a, t_ring_buff *b, t_move best);
+int			search_listab(t_buff *for_lis, int i, int size);
+
 
 #endif

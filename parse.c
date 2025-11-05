@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:05:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 11:22:31 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 03:44:26 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	init_ring(t_ring_buff *ring_a, char *av, size_t size)
 	{
 		digit = ft_atoll(&av, &err);
 		if (err)
-			return (ERROR);
+			return ((free(ring_a ->buff)), ERROR);
 		ring_a->buff[((ring_a->head + i) % ring_a->cap)] = digit;
 		i++;
 	}
@@ -72,7 +72,7 @@ int	parse_arg(t_ring_buff *ring_a, char *av)
 	if (token_checker(av, &size) == ERROR)
 		return (ERROR);
 	if (init_ring(ring_a, av, size) == ERROR)
-		return (free(ring_a->buff), ring_a->buff = NULL, ERROR);
+		return (ERROR);
 	ring_a->size = size;
 	return (SUCCESS);
 }

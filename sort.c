@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 22:58:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 00:22:37 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 04:01:21 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b)
 	n = for_lis->n_vals;
 	while (i < n)
 	{
+		if (search_listab(for_lis, i, n) == 1)
+			break ;
 		if (for_lis->lis_tab[i] == 1)
 			ra(a, 1);
 		else
 		{
 			pb(a, b);
 		}
-		// if (search_listab(for_lis, i + 1, n) == 0)
-		// 	break ;
 		i++;
 	}
 	return (SUCCESS);
@@ -133,13 +133,15 @@ int	controll_sort(t_ring_buff *ring_a, t_ring_buff *ring_b)
 	{
 		if (make_stackb(ring_a, ring_b) == ERROR)
 			return (ERROR);
-		sort_less_than_six(ring_a, ring_b);
+		if (sort_less_than_six(ring_a, ring_b) == ERROR)
+			return (free(ring_b->buff), ERROR);
 	}
 	else
 	{
 		if (sort_process(ring_a, ring_b) == ERROR)
-			return (ERROR);
+			return (free(ring_b->buff), ERROR);
 	}
+	free(ring_b->buff);
 	return (SUCCESS);
 }
 
@@ -147,13 +149,14 @@ int	sort_process(t_ring_buff *ring_a, t_ring_buff *ring_b)
 {
 	t_buff	for_lis;
 
-	if (init_forlis(&for_lis, ring_a, ring_a->size) == ERROR)
+	if (init_forlis(&for_lis, ring_a->size) == ERROR)
 		return (ERROR);
 	if (make_stackb(ring_a, ring_b) == ERROR)
-		return (ERROR);
+		return ((free_all(&for_lis)), ERROR);
 	lis(ring_a, &for_lis);
 	if (push_nonlis(&for_lis, ring_a, ring_b) == ERROR)
 		return (ERROR);
+	free_all(&for_lis);
 	sort_from_b(ring_a, ring_b);
 	return (SUCCESS);
 }

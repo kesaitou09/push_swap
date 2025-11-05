@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:17:23 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 17:10:07 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 04:00:44 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,26 @@ void	free_all(t_buff *forlis)
 {
 	free(forlis->dp);
 	free(forlis->prev);
-	free(forlis->phys);
 	free(forlis->lis_tab);
 }
 
-int	init_forlis(t_buff *for_lis, t_ring_buff *a, int size)
+int	init_forlis(t_buff *for_lis, int size)
 {
 	int	i;
-	int	to_phys;
 
 	for_lis->n_vals = size;
 	for_lis->max_len = 0;
 	for_lis->end = 0;
 	for_lis->dp = malloc(sizeof(int) * size);
 	for_lis->prev = malloc(sizeof(int) * size);
-	for_lis->phys = malloc(sizeof(int) * size);
 	for_lis->lis_tab = malloc(sizeof(int) * size);
-	if (!for_lis->dp || !for_lis->prev || !for_lis->phys || !for_lis->lis_tab)
+	if (!for_lis->dp || !for_lis->prev || !for_lis->lis_tab)
 		return (free_all(for_lis), ERROR);
 	i = 0;
 	while (i < size)
 	{
-		to_phys = ((a->head + i) % a->cap);
 		for_lis->dp[i] = 1;
 		for_lis->prev[i] = -1;
-		for_lis->phys[i] = to_phys;
 		for_lis->lis_tab[i] = 0;
 		i++;
 	}
@@ -80,13 +75,15 @@ void	lis(t_ring_buff *a, t_buff *for_lis)
 	mark_flag(for_lis);
 }
 
-// int	search_listab(t_buff *for_lis, int i, int size)
-// {
-// 	while (i < size)
-// 	{
-// 		if (for_lis->lis_tab[i] == 1)
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
+int	search_listab(t_buff *for_lis, int i, int size)
+{
+	while (i < size)
+	{
+		if (for_lis->lis_tab[i] == 0)
+		{
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
