@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:49:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/07 03:55:58 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 04:04:52 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,6 @@ int			sort_process(t_ring_buff *a, t_ring_buff *b);
 void		lis_dp(t_ring_buff *a, t_buff *for_lis);
 int			init_forlis(t_buff *for_lis, int size);
 int			push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b);
-
-void		print_stack_a(t_ring_buff *a);
-void		print_stack_b(t_ring_buff *a);
-void		print_dp_prev_listab(t_ring_buff *a, t_buff for_lis);
 
 int			manage_sort(t_ring_buff *ring_a, t_ring_buff *ring_b);
 int			sort_five(t_ring_buff *ring_a, t_ring_buff *ring_b);
