@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:49:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 07:24:16 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:43:20 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,17 @@ int			make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b);
 int			rank_helper(t_ring_buff ring_a, int *rank, int i, int r);
 void		free_all(t_buff *forlis);
 
-int			rr(t_ring_buff *a, t_ring_buff *b);
-int			rb(t_ring_buff *b, int how);
-int			ra(t_ring_buff *a, int how);
-int			pb(t_ring_buff *a, t_ring_buff *b);
-int			pa(t_ring_buff *ring_a, t_ring_buff *ring_b);
-int			ss(t_ring_buff *ring_a, t_ring_buff *ring_b);
-int			sb(t_ring_buff *ring_b);
-int			sa(t_ring_buff *ring_a);
-int			rrb(t_ring_buff *b, int how);
-int			rra(t_ring_buff *a, int how);
-int			rrr(t_ring_buff *a, t_ring_buff *b);
+int			rr(t_ring_buff *a, t_ring_buff *b, int print);
+int			rb(t_ring_buff *b, int print);
+int			ra(t_ring_buff *a, int print);
+int			pb(t_ring_buff *a, t_ring_buff *b, int print);
+int			pa(t_ring_buff *ring_a, t_ring_buff *ring_b, int print);
+int			ss(t_ring_buff *ring_a, t_ring_buff *ring_b, int print);
+int			sb(t_ring_buff *ring_b, int print);
+int			sa(t_ring_buff *ring_a, int print);
+int			rrb(t_ring_buff *b, int print);
+int			rra(t_ring_buff *a, int print);
+int			rrr(t_ring_buff *a, t_ring_buff *b, int print);
 int			swap_top(t_ring_buff *r);
 
 void		lis(t_ring_buff *a, t_buff *for_lis);

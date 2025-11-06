@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation_swap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 06:33:05 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 07:48:04 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:38:55 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int	swap_top(t_ring_buff *r)
 	return (SUCCESS);
 }
 
-int	sa(t_ring_buff *ring_a)
+int	sa(t_ring_buff *ring_a, int print)
 {
 	int	succ_a;
 
 	succ_a = swap_top(ring_a);
-	if (succ_a == SUCCESS)
+	if (succ_a == SUCCESS && print)
 	{
 		write(1, "sa\n", 3);
 	}
@@ -42,12 +42,12 @@ int	sa(t_ring_buff *ring_a)
 	return (SUCCESS);
 }
 
-int	sb(t_ring_buff *ring_b)
+int	sb(t_ring_buff *ring_b, int print)
 {
 	int	succ_b;
 
 	succ_b = swap_top(ring_b);
-	if (succ_b == SUCCESS)
+	if (succ_b == SUCCESS && print)
 	{
 		write(1, "sb\n", 3);
 	}
@@ -56,14 +56,14 @@ int	sb(t_ring_buff *ring_b)
 	return (SUCCESS);
 }
 
-int	ss(t_ring_buff *ring_a, t_ring_buff *ring_b)
+int	ss(t_ring_buff *ring_a, t_ring_buff *ring_b, int print)
 {
 	int	succ_a;
 	int	succ_b;
 
 	succ_a = swap_top(ring_a);
 	succ_b = swap_top(ring_b);
-	if (succ_a == SUCCESS && succ_b == SUCCESS)
+	if (succ_a == SUCCESS && succ_b == SUCCESS && print)
 	{
 		write(1, "ss\n", 3);
 	}

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   operation_push.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 06:33:51 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 06:45:09 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:41:39 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	pa(t_ring_buff *ring_a, t_ring_buff *ring_b)
+int	pa(t_ring_buff *ring_a, t_ring_buff *ring_b, int print)
 {
 	int	x;
 
@@ -24,11 +24,12 @@ int	pa(t_ring_buff *ring_a, t_ring_buff *ring_b)
 	ring_a->head = (ring_a->head - 1 + ring_a->cap) % ring_a->cap;
 	ring_a->buff[ring_a->head] = x;
 	ring_a->size++;
-	write(1, "pa\n", 3);
+	if (print)
+		write(1, "pa\n", 3);
 	return (SUCCESS);
 }
 
-int	pb(t_ring_buff *a, t_ring_buff *b)
+int	pb(t_ring_buff *a, t_ring_buff *b, int print)
 {
 	int	x;
 
@@ -40,6 +41,7 @@ int	pb(t_ring_buff *a, t_ring_buff *b)
 	b->head = (b->head - 1 + b->cap) % b->cap;
 	b->buff[b->head] = x;
 	b->size++;
-	write(1, "pb\n", 3);
+	if (print)
+		write(1, "pb\n", 3);
 	return (SUCCESS);
 }

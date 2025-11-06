@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   operation_rotate_one.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 00:06:25 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 07:04:00 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:40:59 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ra(t_ring_buff *a, int how)
+int	ra(t_ring_buff *a, int print)
 {
 	int	tmp;
 	int	tail;
@@ -23,12 +23,12 @@ int	ra(t_ring_buff *a, int how)
 	a->head = (a->head + 1) % a->cap;
 	tail = (a->head + a->size - 1) % a->cap;
 	a->buff[tail] = tmp;
-	if (how)
+	if (print)
 		write(1, "ra\n", 3);
 	return (SUCCESS);
 }
 
-int	rb(t_ring_buff *b, int how)
+int	rb(t_ring_buff *b, int print)
 {
 	int	tmp;
 	int	tail;
@@ -39,17 +39,18 @@ int	rb(t_ring_buff *b, int how)
 	b->head = (b->head + 1) % b->cap;
 	tail = (b->head + b->size - 1) % b->cap;
 	b->buff[tail] = tmp;
-	if (how)
+	if (print)
 		write(1, "rb\n", 3);
 	return (SUCCESS);
 }
 
-int	rr(t_ring_buff *a, t_ring_buff *b)
+int	rr(t_ring_buff *a, t_ring_buff *b, int print)
 {
 	if (ra(a, 0) == ERROR)
 		return (ERROR);
 	if (rb(b, 0) == ERROR)
 		return (ERROR);
-	write(1, "rr\n", 3);
+	if (print)
+		write(1, "rr\n", 3);
 	return (SUCCESS);
 }

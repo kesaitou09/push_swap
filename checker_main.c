@@ -3,27 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   checker_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 14:44:37 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 11:38:17 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:47:29 by ksaitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	remove_nl(char *str)
+static void remove_nl(char *s)
 {
-	int	len;
-
-	if (!str)
-		return ;	
-	len = ft_strlen(str);
-	if (len && str[len - 1] == '\n')
-		str[len - 1] = '\0';
+    size_t n;
+    if (!s) 
+		return;
+    n = ft_strlen(s);
+    if (n != 0 && s[n - 1] == '\n')
+        s[n - 1] = '\0';
 }
 
-int	make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b)
+static int	make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b)
 {
 	ring_b->cap = ring_a->cap;
 	ring_b->buff = malloc(sizeof(int) * (ring_b->cap));
@@ -34,44 +33,33 @@ int	make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b)
 	return (SUCCESS);
 }
 
-int	check_arg(char *buff)
-{
-	if (!ft_strcmp(buff, "sa\n") || !ft_strcmp(buff, "sb\n") || !ft_strcmp(buff,
-			"ss\n"))
-		return (SUCCESS);
-	if (!ft_strcmp(buff, "pa\n") || !ft_strcmp(buff, "pb\n"))
-		return (SUCCESS);
-	if (!ft_strcmp(buff, "ra\n") || !ft_strcmp(buff, "rb\n") || !ft_strcmp(buff,
-			"rr\n"))
-		return (SUCCESS);
-	if (!ft_strcmp(buff, "rra\n") || !ft_strcmp(buff, "rrb\n")
-		|| !ft_strcmp(buff, "rrr\n"))
-		return (SUCCESS);
-	else
-		return (ERROR);
-}
-
 int	do_operation(t_ring_buff *ring_a, t_ring_buff *ring_b, char *op)
 {
 	remove_nl(op);
 	if (ft_strcmp(op, "sa") == 0)
-		sa(ring_a);
+		sa(ring_a, 0);
 	else if (ft_strcmp(op, "sb") == 0)
-		sb(ring_b);
+		sb(ring_b, 0);
 	else if (ft_strcmp(op, "ss") == 0)
-		ss(ring_a, ring_b);
+		ss(ring_a, ring_b, 0);
+	else if (ft_strcmp(op, "pa") == 0)
+		pa(ring_a, ring_b, 0);
+	else if (ft_strcmp(op, "pb") == 0)
+		pb(ring_a, ring_b, 0);
 	else if (ft_strcmp(op, "ra") == 0)
-		ra(ring_a, 1);
+		ra(ring_a, 0);
 	else if (ft_strcmp(op, "rb") == 0)
-		rb(ring_b, 1);
+		rb(ring_b, 0);
 	else if (ft_strcmp(op, "rr") == 0)
-		rr(ring_a, ring_b);
+		rr(ring_a, ring_b, 0);
 	else if (ft_strcmp(op, "rra") == 0)
-		rra(ring_a, 1);
+		rra(ring_a, 0);
 	else if (ft_strcmp(op, "rrb") == 0)
-		rrb(ring_a, 1);
+		rrb(ring_a, 0);
 	else if (ft_strcmp(op, "rrr") == 0)
-		rrr(ring_a, ring_b);
+		rrr(ring_a, ring_b, 0);
+	else
+		return (write(2, "Error\n", 7), ERROR);
 	return (SUCCESS);
 }
 
