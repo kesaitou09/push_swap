@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 22:58:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 06:26:12 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 23:47:29 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b)
 			ra(a, 1);
 		else
 		{
-			pb(a, b);
+			pb(a, b, 1);
 		}
 		i++;
 	}
@@ -83,12 +83,12 @@ int	sort_three(t_ring_buff *ring_a)
 		if (rra(ring_a, 1) == ERROR)
 			return (ERROR);
 		if (!is_ascending(ring_a))
-			if (sa(ring_a) == ERROR)
+			if (sa(ring_a, 1) == ERROR)
 				return (ERROR);
 	}
 	else if (VAL(ring_a, 0) < VAL(ring_a, 2))
 	{
-		if (sa(ring_a) == ERROR)
+		if (sa(ring_a, 1) == ERROR)
 			return (ERROR);
 	}
 	else
@@ -96,7 +96,7 @@ int	sort_three(t_ring_buff *ring_a)
 		if (ra(ring_a, 1) == ERROR)
 			return (ERROR);
 		if (!is_ascending(ring_a))
-			sa(ring_a);
+			sa(ring_a, 1);
 	}
 	return (SUCCESS);
 }

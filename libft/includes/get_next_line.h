@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 11:35:18 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/01 19:52:43 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/07 02:25:21 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <fcntl.h>
 # include <stdint.h>
@@ -19,8 +19,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-// # define OPEN_MAX 65534
-#define OPEN_MAX 10240
+# define OPEN_MAX 65534
+// # define OPEN_MAX 10240
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1000
 # endif
@@ -34,6 +34,7 @@ char	*ft_strndup(char *s, size_t n);
 char	*my_get_line(char **va_buf);
 char	*get_next_line(int fd);
 char	*read_file(int fd, char *va_buf);
-char	*dup_line(char **va_buf);
+char	*manage_dup_line(char **va_buf);
+void	dup_line(char ***va_buf, char **line, size_t len, size_t rest_len);
 
 #endif

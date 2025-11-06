@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 02:38:36 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/10/29 17:00:31 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/05 21:48:32 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ int	ft_printf(const char *format, ...)
 	va_list	args;
 	t_info	inf;
 
-	inf.total_len = 0;
+	inf._len = 0;
 	va_start(args, format);
 	init_info(&inf);
 	if (parse(&format, &inf, &args) == ERROR)
 		return (va_end(args), ERROR);
 	va_end(args);
-	return (inf.total_len);
+	return (inf._len);
 }

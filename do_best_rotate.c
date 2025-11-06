@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_stack.c                                         :+:      :+:    :+:   */
+/*   do_best_rotate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 02:17:15 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 06:21:26 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 23:52:07 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	double_rotate(t_ring_buff *a, t_ring_buff *b, t_move *m)
 {
 	while (m->a_cost > 0 && m->b_cost > 0)
 	{
-		rr(a, b);
+		rr(a, b, 1);
 		m->a_cost--;
 		m->b_cost--;
 	}
 	while (m->a_cost < 0 && m->b_cost < 0)
 	{
-		rrr(a, b);
+		rrr(a, b, 1);
 		m->a_cost++;
 		m->b_cost++;
 	}
@@ -52,7 +52,7 @@ void	apply_move(t_ring_buff *a, t_ring_buff *b, t_move m)
 		rrb(b, 1);
 		m.b_cost++;
 	}
-	pa(a, b);
+	pa(a, b, 1);
 }
 
 void	rotate_a_to(t_ring_buff *a, int pos)

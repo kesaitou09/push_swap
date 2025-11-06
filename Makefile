@@ -6,7 +6,7 @@
 #    By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/30 14:43:16 by kesaitou          #+#    #+#              #
-#    Updated: 2025/11/06 10:49:12 by kesaitou         ###   ########.fr        #
+#    Updated: 2025/11/07 02:58:33 by kesaitou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ MAND_SRCS = do_best_rotate.c \
 MAND_OBJS = $(MAND_SRCS:.c=.o)
 
 BONUS_SRCS = 	checker_main.c \
+				checker_utils.c\
 				ring.c \
 				operation_push.c \
 				operation_rotate_one.c\

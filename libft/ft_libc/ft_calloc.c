@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 21:51:54 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/10/16 02:13:06 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/05 21:48:32 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t	total_size;
+	size_t	_size;
 	void	*arr;
 
 	if (size != 0 && nmemb > SIZE_MAX / size)
 		return (NULL);
-	total_size = nmemb * size;
-	arr = malloc(total_size);
+	_size = nmemb * size;
+	arr = malloc(_size);
 	if (!arr)
 		return (NULL);
-	ft_memset(arr, 0, total_size);
+	ft_memset(arr, 0, _size);
 	return (arr);
 }
 

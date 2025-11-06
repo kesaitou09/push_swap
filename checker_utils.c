@@ -1,20 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   checker_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/16 01:57:05 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/04 04:30:51 by kesaitou         ###   ########.fr       */
+/*   Created: 2025/11/07 02:56:09 by kesaitou          #+#    #+#             */
+/*   Updated: 2025/11/07 03:00:41 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "push_swap.h"
 
-t_list	*ft_lstlast(t_list *lst)
+int	check_strcmp(const char *s1, const char *s2)
 {
-	while (lst && lst->next)
-		lst = lst->next;
-	return (lst);
+	size_t	i;
+
+	i = 0;
+	while (s1[i] != '\0' || s2[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+		{
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		}
+		i++;
+	}
+	return (0);
+}
+
+void	remove_nl(char *s)
+{
+	size_t	n;
+
+	if (!s)
+		return ;
+	n = ft_strlen(s);
+	if (n != 0 && s[n - 1] == '\n')
+		s[n - 1] = '\0';
 }

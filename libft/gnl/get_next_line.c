@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 11:35:22 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/10/29 20:55:23 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 02:26:07 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,33 +57,46 @@ char	*my_get_line(char **va_buf)
 		}
 		return (NULL);
 	}
-	return (dup_line(va_buf));
+	return (manage_dup_line(va_buf));
 }
 
-char	*dup_line(char **va_buf)
+void	dup_line(char ***va_buf, char **line, size_t len, size_t rest_len)
 {
-	char	*line;
-	char	*rest;
 	char	*old;
-	size_t	len;
+	char	*rest;
 
-	len = 0;
-	while ((*va_buf)[len] != '\0' && (*va_buf)[len] != '\n')
+	while ((**va_buf)[len] != '\0' && (**va_buf)[len] != '\n')
 		len++;
-	if ((*va_buf)[len] == '\n')
-		line = ft_strndup(*va_buf, len + 1);
+	if ((**va_buf)[len] == '\n')
+		*line = ft_strndup(**va_buf, len + 1);
 	else
-		line = ft_strndup(*va_buf, len);
+		*line = ft_strndup(**va_buf, len);
 	if (!line)
-		return (NULL);
-	if ((*va_buf)[len] == '\n')
-		rest = ft_strndup((*va_buf) + len + 1, ft_strlen_gnl((*va_buf) + len
-					+ 1));
+		return ;
+	if ((**va_buf)[len] == '\n')
+	{
+		rest_len = ft_strlen_gnl((**va_buf) + len + 1);
+		if (rest_len > 0)
+			rest = ft_strndup((**va_buf) + len + 1, rest_len);
+		else
+			rest = NULL;
+	}
 	else
 		rest = NULL;
-	old = *va_buf;
-	*va_buf = rest;
+	old = **va_buf;
+	**va_buf = rest;
 	free(old);
+}
+
+char	*manage_dup_line(char **va_buf)
+{
+	char	*line;
+	size_t	len;
+	size_t	rest_len;
+
+	len = 0;
+	rest_len = 0;
+	dup_line(&va_buf, &line, len, rest_len);
 	return (line);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:49:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 13:43:20 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/07 03:00:51 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,7 @@ char		*arg_join(int ac, char **av);
 void		apply_move(t_ring_buff *a, t_ring_buff *b, t_move m);
 t_move		best_move(t_ring_buff *a, t_ring_buff *b, t_move best);
 int			search_listab(t_buff *for_lis, int i, int size);
+void		remove_nl(char *s);
+int			check_strcmp(const char *s1, const char *s2);
 
 #endif

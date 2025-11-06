@@ -6,20 +6,18 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 02:38:38 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/10/29 17:00:37 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/05 21:48:32 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 #include "../includes/libft.h"
 
-
-
 int	ft_putchar(char c, t_info *inf)
 {
 	if (write(1, &c, 1) == ERROR)
 		return (ERROR);
-	inf->total_len += 1;
+	inf->_len += 1;
 	return (SUCCESS);
 }
 

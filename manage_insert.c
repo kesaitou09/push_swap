@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_sort.c                                      :+:      :+:    :+:   */
+/*   manage_insert.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 06:16:52 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 06:21:07 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 23:53:05 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	insert_top_b_into_a_minops(t_ring_buff *a, t_ring_buff *b)
 	bval = b->buff[b->head];
 	pos = pos_in_a_for(a, bval);
 	rotate_a_to(a, pos);
-	pa(a, b);
+	pa(a, b, 1);
 }
 
 void	finish_rotate_min_to_top(t_ring_buff *a)

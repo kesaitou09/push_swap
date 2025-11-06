@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 02:47:32 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/10/18 20:45:59 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/05 21:48:32 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_info
 	size_t			width;
 	int				precision;
 	char			specifier;
-	int				total_len;
+	int				_len;
 }					t_info;
 
 typedef enum e_flag
