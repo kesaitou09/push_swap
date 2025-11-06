@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 06:33:05 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 06:44:45 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 07:48:04 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	sa(t_ring_buff *ring_a)
 	{
 		write(1, "sa\n", 3);
 	}
+	else
+		return (ERROR);
 	return (SUCCESS);
 }
 
@@ -49,6 +51,8 @@ int	sb(t_ring_buff *ring_b)
 	{
 		write(1, "sb\n", 3);
 	}
+	else
+		return (ERROR);
 	return (SUCCESS);
 }
 
@@ -63,5 +67,7 @@ int	ss(t_ring_buff *ring_a, t_ring_buff *ring_b)
 	{
 		write(1, "ss\n", 3);
 	}
+	else
+		return (ERROR);
 	return (SUCCESS);
 }

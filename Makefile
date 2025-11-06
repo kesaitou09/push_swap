@@ -6,7 +6,7 @@
 #    By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/30 14:43:16 by kesaitou          #+#    #+#              #
-#    Updated: 2025/11/06 06:40:02 by kesaitou         ###   ########.fr        #
+#    Updated: 2025/11/06 10:49:12 by kesaitou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,10 +40,20 @@ MAND_SRCS = do_best_rotate.c \
 			manage_insert.c \
 			
 
-
 MAND_OBJS = $(MAND_SRCS:.c=.o)
 
-BONUS_SRCS = checker.c op_stack.c ring.c operations.c parse.c sort.c parse_utils.c algo_lisdp.c
+BONUS_SRCS = 	checker_main.c \
+				ring.c \
+				operation_push.c \
+				operation_rotate_one.c\
+				operation_rotate_two.c\
+				operation_swap.c\
+				parse.c \
+				sort.c \
+				parse_utils.c \
+				algo_lisdp.c \
+
+
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 all : $(NAME)

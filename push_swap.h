@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:49:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 06:29:36 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 07:24:16 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ typedef struct s_move
 }			t_move;
 
 int			parse_arg(t_ring_buff *ring_a, char *av);
-int			controll_process(t_ring_buff *ring_a, t_ring_buff *ring_b,
-				char *av);
+int			manage_process(t_ring_buff *ring_a, t_ring_buff *ring_b, char *av);
 int			token_checker(char *av, size_t *size);
 int			ft_isspace(char c);
 long long	ft_atoll(char **av, int *err);
@@ -89,7 +88,7 @@ void		print_stack_a(t_ring_buff *a);
 void		print_stack_b(t_ring_buff *a);
 void		print_dp_prev_listab(t_ring_buff *a, t_buff for_lis);
 
-int			controll_sort(t_ring_buff *ring_a, t_ring_buff *ring_b);
+int			manage_sort(t_ring_buff *ring_a, t_ring_buff *ring_b);
 int			sort_five(t_ring_buff *ring_a, t_ring_buff *ring_b);
 int			sort_three(t_ring_buff *ring_a);
 int			is_ascending(t_ring_buff *ring_a);

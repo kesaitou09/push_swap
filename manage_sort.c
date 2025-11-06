@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 06:25:38 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 06:41:37 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/06 07:23:22 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	sort_five(t_ring_buff *ring_a, t_ring_buff *ring_b)
 	return (SUCCESS);
 }
 
-int	controll_sort(t_ring_buff *ring_a, t_ring_buff *ring_b)
+int	manage_sort(t_ring_buff *ring_a, t_ring_buff *ring_b)
 {
 	if (is_ascending(ring_a))
 		return (SUCCESS);
