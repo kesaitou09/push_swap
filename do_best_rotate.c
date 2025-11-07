@@ -6,14 +6,14 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 02:17:15 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 23:52:07 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:42:01 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-void	double_rotate(t_ring_buff *a, t_ring_buff *b, t_move *m)
+void	double_rotate(t_ring *a, t_ring *b, t_move *m)
 {
 	while (m->a_cost > 0 && m->b_cost > 0)
 	{
@@ -29,7 +29,7 @@ void	double_rotate(t_ring_buff *a, t_ring_buff *b, t_move *m)
 	}
 }
 
-void	apply_move(t_ring_buff *a, t_ring_buff *b, t_move m)
+void	apply_move(t_ring *a, t_ring *b, t_move m)
 {
 	double_rotate(a, b, &m);
 	while (m.a_cost > 0)
@@ -55,7 +55,7 @@ void	apply_move(t_ring_buff *a, t_ring_buff *b, t_move m)
 	pa(a, b, 1);
 }
 
-void	rotate_a_to(t_ring_buff *a, int pos)
+void	rotate_a_to(t_ring *a, int pos)
 {
 	int	ca;
 

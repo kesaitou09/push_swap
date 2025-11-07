@@ -6,20 +6,20 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:17:23 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 04:00:44 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:45:18 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_all(t_buff *forlis)
+void	free_all(t_lis *forlis)
 {
 	free(forlis->dp);
 	free(forlis->prev);
 	free(forlis->lis_tab);
 }
 
-int	init_forlis(t_buff *for_lis, int size)
+int	init_forlis(t_lis *for_lis, int size)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ int	init_forlis(t_buff *for_lis, int size)
 	return (SUCCESS);
 }
 
-void	lis_dp(t_ring_buff *a, t_buff *for_lis)
+void	lis_dp(t_ring *a, t_lis *for_lis)
 {
 	int	i;
 	int	j;
@@ -53,7 +53,7 @@ void	lis_dp(t_ring_buff *a, t_buff *for_lis)
 		j = 0;
 		while (j < i)
 		{
-			if (VAL(a, j) < VAL(a, i) && (for_lis->dp[j] + 1) >= for_lis->dp[i])
+			if (ring_val(a, j) < ring_val(a, i) && (for_lis->dp[j] + 1) >= for_lis->dp[i])
 			{
 				for_lis->dp[i] = for_lis->dp[j] + 1;
 				for_lis->prev[i] = j;
@@ -69,13 +69,13 @@ void	lis_dp(t_ring_buff *a, t_buff *for_lis)
 	}
 }
 
-void	lis(t_ring_buff *a, t_buff *for_lis)
+void	lis(t_ring *a, t_lis *for_lis)
 {
 	lis_dp(a, for_lis);
 	mark_flag(for_lis);
 }
 
-int	search_listab(t_buff *for_lis, int i, int size)
+int	search_listab(t_lis *for_lis, int i, int size)
 {
 	while (i < size)
 	{

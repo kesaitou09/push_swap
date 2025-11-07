@@ -6,13 +6,13 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 06:36:27 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/07 01:31:22 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:42:01 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	rra(t_ring_buff *a, int print)
+int	rra(t_ring *a, int print)
 {
 	int	tmp;
 	int	tail;
@@ -28,7 +28,7 @@ int	rra(t_ring_buff *a, int print)
 	return (SUCCESS);
 }
 
-int	rrb(t_ring_buff *b, int print)
+int	rrb(t_ring *b, int print)
 {
 	int	tmp;
 	int	tail;
@@ -44,7 +44,7 @@ int	rrb(t_ring_buff *b, int print)
 	return (SUCCESS);
 }
 
-int	rrr(t_ring_buff *a, t_ring_buff *b, int print)
+int	rrr(t_ring *a, t_ring *b, int print)
 {
 	if (a->size < 2 || b->size < 2)
 		return (ERROR);

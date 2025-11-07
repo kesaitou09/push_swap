@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker_utils.c                                    :+:      :+:    :+:   */
+/*   ring_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/07 02:56:09 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/07 10:16:48 by kesaitou         ###   ########.fr       */
+/*   Created: 2025/11/07 10:36:00 by kesaitou          #+#    #+#             */
+/*   Updated: 2025/11/07 10:43:25 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_strcmp(const char *s1, const char *s2)
+size_t	ring_ind(t_ring *ring, size_t i)
 {
-	size_t	i;
-
-	i = 0;
-	while (s1[i] || s2[i])
-	{
-		if (s1[i] != s2[i])
-		{
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		}
-		i++;
-	}
-	return (0);
+	return ((ring->head + i) % ring->cap);
 }
 
-void	remove_nl(char *s)
+int	ring_val(t_ring *ring, size_t i)
 {
-	size_t	n;
-
-	if (!s)
-		return ;
-	n = ft_strlen(s);
-	if (n != 0 && s[n - 1] == '\n')
-		s[n - 1] = '\0';
+	return (ring->buff[ring_ind(ring, i)]);
 }

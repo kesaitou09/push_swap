@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 06:16:52 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/07 03:55:48 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:42:01 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	init_tmove(t_move *best)
 	best->cost = INT_MAX;
 }
 
-void	finish_rotate_min_to_top(t_ring_buff *a)
+void	finish_rotate_min_to_top(t_ring *a)
 {
 	int	pos;
 
@@ -31,7 +31,7 @@ void	finish_rotate_min_to_top(t_ring_buff *a)
 	rotate_a_to(a, pos);
 }
 
-void	sort_from_b(t_ring_buff *a, t_ring_buff *b)
+void	sort_from_b(t_ring *a, t_ring *b)
 {
 	t_move	m;
 	t_move	best;

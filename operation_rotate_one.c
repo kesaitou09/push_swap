@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   operation_rotate_one.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 00:06:25 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 13:40:59 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/07 10:42:01 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ra(t_ring_buff *a, int print)
+int	ra(t_ring *a, int print)
 {
 	int	tmp;
 	int	tail;
@@ -28,7 +28,7 @@ int	ra(t_ring_buff *a, int print)
 	return (SUCCESS);
 }
 
-int	rb(t_ring_buff *b, int print)
+int	rb(t_ring *b, int print)
 {
 	int	tmp;
 	int	tail;
@@ -44,7 +44,7 @@ int	rb(t_ring_buff *b, int print)
 	return (SUCCESS);
 }
 
-int	rr(t_ring_buff *a, t_ring_buff *b, int print)
+int	rr(t_ring *a, t_ring *b, int print)
 {
 	if (ra(a, 0) == ERROR)
 		return (ERROR);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   operation_push.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 06:33:51 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 13:41:39 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/07 10:42:01 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	pa(t_ring_buff *ring_a, t_ring_buff *ring_b, int print)
+int	pa(t_ring *ring_a, t_ring *ring_b, int print)
 {
 	int	x;
 
@@ -29,7 +29,7 @@ int	pa(t_ring_buff *ring_a, t_ring_buff *ring_b, int print)
 	return (SUCCESS);
 }
 
-int	pb(t_ring_buff *a, t_ring_buff *b, int print)
+int	pb(t_ring *a, t_ring *b, int print)
 {
 	int	x;
 

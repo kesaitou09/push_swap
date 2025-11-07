@@ -6,13 +6,13 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 22:58:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 23:47:29 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:45:18 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	mark_flag(t_buff *for_lis)
+void	mark_flag(t_lis *for_lis)
 {
 	int	k;
 
@@ -24,7 +24,7 @@ void	mark_flag(t_buff *for_lis)
 	}
 }
 
-int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b)
+int	push_nonlis(t_lis *for_lis, t_ring *a, t_ring *b)
 {
 	int	n;
 	int	i;
@@ -46,39 +46,39 @@ int	push_nonlis(t_buff *for_lis, t_ring_buff *a, t_ring_buff *b)
 	return (SUCCESS);
 }
 
-int	is_ascending(t_ring_buff *ring_a)
+int	is_ascending(t_ring *ring_a)
 {
 	int	i;
 
 	i = 0;
 	while (i < ring_a->size - 1)
 	{
-		if (VAL(ring_a, i) > VAL(ring_a, i + 1))
+		if (ring_val(ring_a, i) > ring_val(ring_a, i + 1))
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int	is_descending(t_ring_buff *ring_a)
+int	is_descending(t_ring *ring_a)
 {
 	int	i;
 
 	i = 0;
 	while (i < ring_a->size - 1)
 	{
-		if (VAL(ring_a, i) < VAL(ring_a, i + 1))
+		if (ring_val(ring_a, i) < ring_val(ring_a, i + 1))
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int	sort_three(t_ring_buff *ring_a)
+int	sort_three(t_ring *ring_a)
 {
 	if (is_ascending(ring_a))
 		return (SUCCESS);
-	if (VAL(ring_a, 0) < VAL(ring_a, 1))
+	if (ring_val(ring_a, 0) < ring_val(ring_a, 1))
 	{
 		if (rra(ring_a, 1) == ERROR)
 			return (ERROR);
@@ -86,7 +86,7 @@ int	sort_three(t_ring_buff *ring_a)
 			if (sa(ring_a, 1) == ERROR)
 				return (ERROR);
 	}
-	else if (VAL(ring_a, 0) < VAL(ring_a, 2))
+	else if (ring_val(ring_a, 0) < ring_val(ring_a, 2))
 	{
 		if (sa(ring_a, 1) == ERROR)
 			return (ERROR);

@@ -6,13 +6,13 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 06:25:38 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 23:52:33 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:42:01 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b)
+int	make_stackb(t_ring *ring_a, t_ring *ring_b)
 {
 	ring_b->cap = ring_a->cap;
 	ring_b->buff = malloc(sizeof(int) * (ring_b->cap));
@@ -23,7 +23,7 @@ int	make_stackb(t_ring_buff *ring_a, t_ring_buff *ring_b)
 	return (SUCCESS);
 }
 
-int	sort_five(t_ring_buff *ring_a, t_ring_buff *ring_b)
+int	sort_five(t_ring *ring_a, t_ring *ring_b)
 {
 	int	n;
 
@@ -47,7 +47,7 @@ int	sort_five(t_ring_buff *ring_a, t_ring_buff *ring_b)
 	return (SUCCESS);
 }
 
-int	manage_sort(t_ring_buff *ring_a, t_ring_buff *ring_b)
+int	manage_sort(t_ring *ring_a, t_ring *ring_b)
 {
 	if (is_ascending(ring_a))
 		return (SUCCESS);
@@ -67,9 +67,9 @@ int	manage_sort(t_ring_buff *ring_a, t_ring_buff *ring_b)
 	return (SUCCESS);
 }
 
-int	sort_process(t_ring_buff *ring_a, t_ring_buff *ring_b)
+int	sort_process(t_ring *ring_a, t_ring *ring_b)
 {
-	t_buff	for_lis;
+	t_lis	for_lis;
 
 	if (init_forlis(&for_lis, ring_a->size) == ERROR)
 		return (ERROR);

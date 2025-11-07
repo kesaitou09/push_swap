@@ -6,13 +6,13 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 00:41:39 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 07:22:48 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:42:01 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	manage_process(t_ring_buff *ring_a, t_ring_buff *ring_b, char *av)
+int	manage_process(t_ring *ring_a, t_ring *ring_b, char *av)
 {
 	if (parse_arg(ring_a, av) == ERROR)
 		return (1);
@@ -26,8 +26,8 @@ int	manage_process(t_ring_buff *ring_a, t_ring_buff *ring_b, char *av)
 
 int	main(int ac, char **av)
 {
-	t_ring_buff	ring_a;
-	t_ring_buff	ring_b;
+	t_ring	ring_a;
+	t_ring	ring_b;
 	char		*joined;
 
 	init_ring_buff(&ring_a);

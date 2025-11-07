@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:05:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/07 10:03:42 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:42:01 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	token_checker(char *av, size_t *size)
 	return (SUCCESS);
 }
 
-int	init_ring(t_ring_buff *ring_a, char *av, size_t size)
+int	init_ring(t_ring *ring_a, char *av, size_t size)
 {
 	size_t	i;
 	int		err;
@@ -64,7 +64,7 @@ int	init_ring(t_ring_buff *ring_a, char *av, size_t size)
 	return (SUCCESS);
 }
 
-int	parse_arg(t_ring_buff *ring_a, char *av)
+int	parse_arg(t_ring *ring_a, char *av)
 {
 	size_t	size;
 

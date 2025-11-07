@@ -6,13 +6,13 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 07:08:57 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 06:42:14 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:42:01 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	create_ring(t_ring_buff *ring_a)
+int	create_ring(t_ring *ring_a)
 {
 	int	*rank;
 
@@ -26,7 +26,7 @@ int	create_ring(t_ring_buff *ring_a)
 	return (SUCCESS);
 }
 
-int	grant_rank(t_ring_buff ring_a, int *rank)
+int	grant_rank(t_ring ring_a, int *rank)
 {
 	size_t	i;
 	int		r;
@@ -38,7 +38,7 @@ int	grant_rank(t_ring_buff ring_a, int *rank)
 	return (1);
 }
 
-int	rank_helper(t_ring_buff ring_a, int *rank, int i, int r)
+int	rank_helper(t_ring ring_a, int *rank, int i, int r)
 {
 	int	j;
 	int	vi;
@@ -64,7 +64,7 @@ int	rank_helper(t_ring_buff ring_a, int *rank, int i, int r)
 	return (1);
 }
 
-void	ring_load(t_ring_buff *ring_a, int *rank, int n)
+void	ring_load(t_ring *ring_a, int *rank, int n)
 {
 	int	i;
 
@@ -78,7 +78,7 @@ void	ring_load(t_ring_buff *ring_a, int *rank, int n)
 	ring_a->size = n;
 }
 
-void	init_ring_buff(t_ring_buff *ring_a)
+void	init_ring_buff(t_ring *ring_a)
 {
 	ring_a->buff = NULL;
 	ring_a->cap = 0;

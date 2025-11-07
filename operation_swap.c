@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   operation_swap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksaitou <ksaitou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 06:33:05 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 13:38:55 by ksaitou          ###   ########.fr       */
+/*   Updated: 2025/11/07 10:42:01 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	swap_top(t_ring_buff *r)
+int	swap_top(t_ring *r)
 {
 	int	i;
 	int	j;
@@ -28,7 +28,7 @@ int	swap_top(t_ring_buff *r)
 	return (SUCCESS);
 }
 
-int	sa(t_ring_buff *ring_a, int print)
+int	sa(t_ring *ring_a, int print)
 {
 	int	succ_a;
 
@@ -42,7 +42,7 @@ int	sa(t_ring_buff *ring_a, int print)
 	return (SUCCESS);
 }
 
-int	sb(t_ring_buff *ring_b, int print)
+int	sb(t_ring *ring_b, int print)
 {
 	int	succ_b;
 
@@ -56,7 +56,7 @@ int	sb(t_ring_buff *ring_b, int print)
 	return (SUCCESS);
 }
 
-int	ss(t_ring_buff *ring_a, t_ring_buff *ring_b, int print)
+int	ss(t_ring *ring_a, t_ring *ring_b, int print)
 {
 	int	succ_a;
 	int	succ_b;

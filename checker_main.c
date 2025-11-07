@@ -6,13 +6,13 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 14:44:37 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/07 02:59:49 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:42:01 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	make_sb(t_ring_buff *ring_a, t_ring_buff *ring_b)
+static int	make_sb(t_ring *ring_a, t_ring *ring_b)
 {
 	ring_b->cap = ring_a->cap;
 	ring_b->buff = malloc(sizeof(int) * (ring_b->cap));
@@ -23,7 +23,7 @@ static int	make_sb(t_ring_buff *ring_a, t_ring_buff *ring_b)
 	return (SUCCESS);
 }
 
-int	do_operation(t_ring_buff *ring_a, t_ring_buff *ring_b, char *op)
+int	do_operation(t_ring *ring_a, t_ring *ring_b, char *op)
 {
 	if (check_strcmp(op, "sa") == 0)
 		sa(ring_a, 0);
@@ -52,7 +52,7 @@ int	do_operation(t_ring_buff *ring_a, t_ring_buff *ring_b, char *op)
 	return (SUCCESS);
 }
 
-int	parse_operation(t_ring_buff *ring_a, t_ring_buff *ring_b)
+int	parse_operation(t_ring *ring_a, t_ring *ring_b)
 {
 	char	*buff;
 
@@ -72,7 +72,7 @@ int	parse_operation(t_ring_buff *ring_a, t_ring_buff *ring_b)
 		return ((free(buff)), write(1, "KO\n", 3), SUCCESS);
 }
 
-int	manage_process_bonus(t_ring_buff *ring_a, t_ring_buff *ring_b, char *av)
+int	manage_process_bonus(t_ring *ring_a, t_ring *ring_b, char *av)
 {
 	if (parse_arg(ring_a, av) == ERROR)
 		return ((write(2, "Error\n", 7)), 1);
@@ -88,8 +88,8 @@ int	manage_process_bonus(t_ring_buff *ring_a, t_ring_buff *ring_b, char *av)
 
 int	main(int ac, char **av)
 {
-	t_ring_buff	ring_a;
-	t_ring_buff	ring_b;
+	t_ring	ring_a;
+	t_ring	ring_b;
 	char		*joined;
 
 	init_ring_buff(&ring_a);

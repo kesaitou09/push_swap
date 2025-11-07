@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 05:22:05 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 06:43:18 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:45:18 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	max(int a, int b)
 	return (b);
 }
 
-int	idx_min_logical(t_ring_buff *a)
+int	idx_min_logical(t_ring *a)
 {
 	int	i;
 	int	imin;
@@ -34,11 +34,11 @@ int	idx_min_logical(t_ring_buff *a)
 	int	v;
 
 	imin = 0;
-	vmin = VAL(a, 0);
+	vmin = ring_val(a, 0);
 	i = 1;
 	while (i < a->size)
 	{
-		v = VAL(a, i);
+		v = ring_val(a, i);
 		if (v < vmin)
 		{
 			vmin = v;
@@ -49,17 +49,17 @@ int	idx_min_logical(t_ring_buff *a)
 	return (imin);
 }
 
-int	max_val(t_ring_buff *a)
+int	max_val(t_ring *a)
 {
 	int	i;
 	int	vmax;
 	int	v;
 
-	vmax = VAL(a, 0);
+	vmax = ring_val(a, 0);
 	i = 1;
 	while (i < a->size)
 	{
-		v = VAL(a, i);
+		v = ring_val(a, i);
 		if (v > vmax)
 			vmax = v;
 		i++;

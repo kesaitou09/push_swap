@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calc_utils.c                                       :+:      :+:    :+:   */
+/*   get_info_to.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 05:24:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 06:19:20 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:45:18 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	calc_cost(int idx, int size)
 	return (idx - size);
 }
 
-t_move	best_move(t_ring_buff *a, t_ring_buff *b, t_move best)
+t_move	best_move(t_ring *a, t_ring *b, t_move best)
 {
 	int	id_sb;
 	int	bval;
@@ -36,7 +36,7 @@ t_move	best_move(t_ring_buff *a, t_ring_buff *b, t_move best)
 	id_sb = 0;
 	while (id_sb < b->size)
 	{
-		bval = VAL(b, id_sb);
+		bval = ring_val(b, id_sb);
 		pos = pos_in_a_for(a, bval);
 		c = merged_cost(calc_cost(pos, a->size), calc_cost(id_sb, b->size));
 		if (c < best.cost)
@@ -52,13 +52,13 @@ t_move	best_move(t_ring_buff *a, t_ring_buff *b, t_move best)
 	return (best);
 }
 
-int	pos_in_a_for(t_ring_buff *a, int b)
+int	pos_in_a_for(t_ring *a, int b)
 {
 	if (a->size == 0)
 		return (0);
 	if (a->size == 1)
 	{
-		if (VAL(a, 0) < b)
+		if (ring_val(a, 0) < b)
 			return (1);
 		else
 			return (0);
@@ -66,7 +66,7 @@ int	pos_in_a_for(t_ring_buff *a, int b)
 	return (search_position(a, b));
 }
 
-int	search_position(t_ring_buff *ring_a, int b)
+int	search_position(t_ring *ring_a, int b)
 {
 	int	i;
 	int	cur;
@@ -75,12 +75,12 @@ int	search_position(t_ring_buff *ring_a, int b)
 
 	i = 0;
 	idx_min = idx_min_logical(ring_a);
-	if (b < VAL(ring_a, idx_min) || b > max_val(ring_a))
+	if (b < ring_val(ring_a, idx_min) || b > max_val(ring_a))
 		return (idx_min);
 	while (i < ring_a->size)
 	{
-		prev = VAL(ring_a, (i - 1 + ring_a->size) % ring_a->size);
-		cur = VAL(ring_a, i);
+		prev = ring_val(ring_a, (i - 1 + ring_a->size) % ring_a->size);
+		cur = ring_val(ring_a, i);
 		if (prev < b && b < cur)
 			return (i);
 		i++;
