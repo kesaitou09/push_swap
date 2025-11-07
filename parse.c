@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:05:40 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/06 03:44:26 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:03:42 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	init_ring(t_ring_buff *ring_a, char *av, size_t size)
 		return (ERROR);
 	while (i < size)
 	{
-		digit = ft_atoll(&av, &err);
+		digit = (int)ft_atoll(&av, &err);
 		if (err)
 			return ((free(ring_a ->buff)), ERROR);
 		ring_a->buff[((ring_a->head + i) % ring_a->cap)] = digit;
