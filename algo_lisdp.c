@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:17:23 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/07 10:45:18 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 11:05:29 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	lis_dp(t_ring *a, t_lis *for_lis)
 		j = 0;
 		while (j < i)
 		{
-			if (ring_val(a, j) < ring_val(a, i) && (for_lis->dp[j] + 1) >= for_lis->dp[i])
+			if (ring_val(a, j) < ring_val(a, i) && (for_lis->dp[j]
+					+ 1) >= for_lis->dp[i])
 			{
 				for_lis->dp[i] = for_lis->dp[j] + 1;
 				for_lis->prev[i] = j;

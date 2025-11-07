@@ -6,7 +6,7 @@
 /*   By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 00:41:39 by kesaitou          #+#    #+#             */
-/*   Updated: 2025/11/07 10:42:01 by kesaitou         ###   ########.fr       */
+/*   Updated: 2025/11/07 11:04:53 by kesaitou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int ac, char **av)
 {
 	t_ring	ring_a;
 	t_ring	ring_b;
-	char		*joined;
+	char	*joined;
 
 	init_ring_buff(&ring_a);
 	if (ac == 1)
