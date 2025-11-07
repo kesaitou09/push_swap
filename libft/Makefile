@@ -6,7 +6,7 @@
 #    By: kesaitou <kesaitou@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/18 16:54:22 by kesaitou          #+#    #+#              #
-#    Updated: 2025/11/07 01:56:42 by kesaitou         ###   ########.fr        #
+#    Updated: 2025/11/07 12:04:02 by kesaitou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,6 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
-	ranlib $(NAME)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
